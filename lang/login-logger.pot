@@ -1,0 +1,52 @@
+#: ../login-logger.php:103 ../views/logins.php:3
+msgid "Login Log"
+msgstr ""
+
+#: ../views/logins.php:13 ../inc/logintable.php:69
+msgid "Login"
+msgstr ""
+
+#: ../views/logins.php:19
+msgid "All"
+msgstr ""
+
+#: ../views/logins.php:25 ../inc/logintable.php:70
+msgid "IP Address"
+msgstr ""
+
+#: ../views/logins.php:31
+msgid "Search"
+msgstr ""
+
+#: ../inc/logintable.php:12
+msgid "Record"
+msgstr ""
+
+#: ../inc/logintable.php:13
+msgid "Records"
+msgstr ""
+
+#: ../inc/logintable.php:71
+msgid "Time"
+msgstr ""
+
+#: ../inc/logintable.php:72
+msgid "Outcome"
+msgstr ""
+
+#: ../inc/logintable.php:81
+#, php-format
+msgid "<a href=\"%s\">Profile</a>"
+msgstr ""
+
+#: ../inc/logintable.php:114
+msgid "Login attempt"
+msgstr ""
+
+#: ../inc/logintable.php:117
+msgid "Login OK"
+msgstr ""
+
+#: ../inc/logintable.php:120
+msgid "Login failed"
+msgstr ""

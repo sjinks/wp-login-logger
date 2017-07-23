@@ -1,0 +1,19 @@
+{
+	"name" : "wildwolf/wp-login-logger",
+	"type" : "wordpress-plugin",
+	"description" : "WordPress plugin to log login attempts",
+	"keywords" : ["wordpress", "plugin", "log", "login", "security"],
+	"license" : "MIT",
+	"homepage" : "https://github.com/sjinks/wp-login-logger",
+	"authors" : [
+		{
+			"name" : "Volodymyr Kolesnykov",
+			"email" : "volodymyr@wildwolf.name",
+			"role" : "Developer"
+		}
+	],
+	"require" : {
+		"php" : ">=7.0.0",
+		"composer/installers" : "~1.0"
+	}
+}

@@ -77,10 +77,6 @@ class LoginTable extends \WP_List_Table
     {
         $s = '<tr>';
 
-        $actions = [
-            'view' => sprintf(__('<a href="%s">Profile</a>'), admin_url('user-edit.php?user_id=' . $item->user_id))
-        ];
-
         list($columns, $hidden, $sortable, $primary) = $this->get_column_info();
 
         foreach ($columns as $column_name => $column_display_name) {
@@ -93,38 +89,14 @@ class LoginTable extends \WP_List_Table
                 $classes .= ' hidden';
             }
 
-            $attributes = "class='$classes'";
-            $s .= "<td {$attributes}>";
+            $s .= "<td class=\"{$classes}\">";
 
-            switch ($column_name) {
-                case 'username':
-                    $s .= esc_html($item->$column_name);
-                    if ($item->user_id) {
-                        $s .= $this->row_actions($actions, false);
-                    }
-
-                    break;
-
-                case 'dt':
-                    $s .= date('d.m.Y H:i:s', $item->$column_name);
-                    break;
-
-                case 'outcome':
-                    if (-1 == $item->$column_name) {
-                        $s .= __('Login attempt', 'login-logger');
-                    }
-                    else if (1 == $item->$column_name) {
-                        $s .= __('Login OK', 'login-logger');
-                    }
-                    else {
-                        $s .= __('Login failed', 'login-logger');
-                    }
-
-                    break;
-
-                default:
-                    $s .= esc_html($item->$column_name);
-                    break;
+            $method = 'process_' . $column_name;
+            if (method_exists($this, $method)) {
+                $s .= $this->$method($item);
+            }
+            else {
+                $s .= esc_html($item->$column_name);
             }
 
             $s .= "</td>";
@@ -132,5 +104,36 @@ class LoginTable extends \WP_List_Table
 
         $s .= '</tr>';
         echo $s;
+    }
+
+    private function process_username($item)
+    {
+        $actions = [
+            'view' => sprintf(__('<a href="%s">Profile</a>'), admin_url('user-edit.php?user_id=' . $item->user_id))
+        ];
+
+        $s = esc_html($item->username);
+        if ($item->user_id) {
+            $s .= $this->row_actions($actions, false);
+        }
+
+        return $s;
+    }
+
+    private function process_dt($item)
+    {
+        return date('d.m.Y H:i:s', $item->dt);
+    }
+
+    private function process_outcome($item)
+    {
+        $lut = [
+            -1 => __('Login attempt', 'login-logger'),
+             0 => __('Login failed', 'login-logger'),
+             1 => __('Login OK', 'login-logger'),
+        ];
+
+        $s = $lut[$item->outcome] ?? $item->outcome;
+        return $s;
     }
 }

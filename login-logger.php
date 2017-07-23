@@ -1,6 +1,6 @@
 <?php
 /*
- * Plugin Name: Login Logger
+ * Plugin Name: WW Login Logger
  * Plugin URI: https://github.com/sjinks/wp-login-logger
  * Description: WordPress plugin to log login attempts
  * Version: 1.0.0

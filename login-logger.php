@@ -60,18 +60,24 @@ class LoginLogger
         $this->maybeUpdateSchema();
     }
 
+    private static function log($login, $user_id, $outcome)
+    {
+        global $wpdb;
+        $ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
+        $wpdb->insert($wpdb->prefix . 'login_log', [
+            'ip'       => $ip,
+            'dt'       => time(),
+            'username' => $login,
+            'user_id'  => $user_id,
+            'outcome'  => $outcome
+        ]);
+    }
+
     public function authenticate($result, $login, $password)
     {
         if ($login) {
             global $wpdb;
-            $wpdb->insert($wpdb->prefix . 'login_log', [
-                'ip'       => inet_pton($_SERVER['REMOTE_ADDR']),
-                'dt'       => time(),
-                'username' => $login,
-                'user_id'  => 0,
-                'outcome'  => -1
-            ]);
-
+            self::log($login, 0, -1);
             $this->_record_id = $wpdb->insert_id;
         }
 
@@ -81,15 +87,7 @@ class LoginLogger
     public function wp_login($login, \WP_User $user)
     {
         if ($this->_record_id > 0) {
-            global $wpdb;
-            $wpdb->insert($wpdb->prefix . 'login_log', [
-                'ip'       => inet_pton($_SERVER['REMOTE_ADDR']),
-                'dt'       => time(),
-                'username' => $login,
-                'user_id'  => $user->ID,
-                'outcome'  => 1
-            ]);
-
+            self::log($login, $user->ID, 1);
             $this->_record_id = 0;
         }
     }
@@ -97,14 +95,7 @@ class LoginLogger
     public function wp_login_failed($login)
     {
         if ($login) {
-            global $wpdb;
-            $wpdb->insert($wpdb->prefix . 'login_log', [
-                'ip'       => inet_pton($_SERVER['REMOTE_ADDR']),
-                'dt'       => time(),
-                'username' => $login,
-                'user_id'  => 0,
-                'outcome'  => 0
-            ]);
+            self::log($login, 0, 0);
         }
     }
 
@@ -116,11 +107,12 @@ class LoginLogger
 
     public function load_page_common()
     {
-        if (!empty($_GET['_wp_http_referer'])) {
+        $uri = filter_input(INPUT_SERVER, 'REQUEST_URI');
+        if (isset($_GET['_wp_http_referer'])) {
             wp_redirect(
                 remove_query_arg(
                     ['_wp_http_referer', '_wpnonce'],
-                    wp_unslash($_SERVER['REQUEST_URI'])
+                    wp_unslash($uri)
                 )
             );
 

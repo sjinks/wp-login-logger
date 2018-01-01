@@ -28,7 +28,7 @@ class Installer
         user_id bigint(20) unsigned NOT NULL,
         outcome tinyint(4) NOT NULL,
         PRIMARY KEY  (id)
-        ) $charset_collate;";
+        ) {$charset_collate};";
 
         dbDelta($sql);
 

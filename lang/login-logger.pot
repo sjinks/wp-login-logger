@@ -1,4 +1,4 @@
-#: ../login-logger.php:103 ../views/logins.php:3
+#: ../views/logins.php:3 ../inc/login-logger.php:89
 msgid "Login Log"
 msgstr ""
 
@@ -34,19 +34,19 @@ msgstr ""
 msgid "Outcome"
 msgstr ""
 
-#: ../inc/logintable.php:81
+#: ../inc/logintable.php:112
 #, php-format
 msgid "<a href=\"%s\">Profile</a>"
 msgstr ""
 
-#: ../inc/logintable.php:114
+#: ../inc/logintable.php:131
 msgid "Login attempt"
 msgstr ""
 
-#: ../inc/logintable.php:117
-msgid "Login OK"
+#: ../inc/logintable.php:132
+msgid "Login failed"
 msgstr ""
 
-#: ../inc/logintable.php:120
-msgid "Login failed"
+#: ../inc/logintable.php:133
+msgid "Login OK"
 msgstr ""

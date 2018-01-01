@@ -125,9 +125,9 @@ class LoginTable extends \WP_List_Table
         return date('d.m.Y H:i:s', $item->dt);
     }
 
-    private function process_outecome($item)
+    private function process_outcome($item)
     {
-        static $lut = [
+        $lut = [
             -1 => __('Login attempt', 'login-logger'),
              0 => __('Login failed', 'login-logger'),
              1 => __('Login OK', 'login-logger'),

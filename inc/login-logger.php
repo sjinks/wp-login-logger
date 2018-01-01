@@ -1,14 +1,4 @@
 <?php
-/*
- * Plugin Name: Login Logger
- * Plugin URI: https://github.com/sjinks/wp-login-logger
- * Description: WordPress plugin to log login attempts
- * Version: 1.0.0
- * Author: Volodymyr Kolesnykov
- * License: MIT
- * Text Domain: login-logger
- * Domain Path: /lang
- */
 
 namespace WildWolf;
 
@@ -34,17 +24,11 @@ class LoginLogger
 
         add_action('plugins_loaded', [$this, 'plugins_loaded']);
         add_action('init',           [$this, 'init']);
-
-        register_activation_hook(__FILE__, [$this, 'activate']);
     }
 
     public function plugins_loaded()
     {
-        if (empty($_SERVER['REMOTE_ADDR'])) {
-            $_SERVER['REMOTE_ADDR'] = '0.0.0.0';
-        }
-
-        load_plugin_textdomain('login-logger', false, substr(__DIR__, strlen(\WP_PLUGIN_DIR) + 1) . '/lang/');
+        load_plugin_textdomain('login-logger', false, substr(__DIR__, strlen(\WP_PLUGIN_DIR . '/inc/')) . '/lang/');
     }
 
     public function init()
@@ -63,9 +47,10 @@ class LoginLogger
     private static function log($login, $user_id, $outcome)
     {
         global $wpdb;
-        $ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
+        $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+
         $wpdb->insert($wpdb->prefix . 'login_log', [
-            'ip'       => $ip,
+            'ip'       => inet_pton($ip),
             'dt'       => time(),
             'username' => $login,
             'user_id'  => $user_id,
@@ -122,26 +107,26 @@ class LoginLogger
 
     public function menu_page()
     {
-        require __DIR__ . '/inc/logintable.php';
-        require __DIR__ . '/views/logins.php';
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+
+        require __DIR__ . '/logintable.php';
+        require __DIR__ . '/../views/logins.php';
     }
 
     private function maybeUpdateSchema()
     {
         $ver = get_option('ww_login_logger_dbver', 0);
         if ($ver < self::$db_version) {
-            require_once __DIR__ . '/inc/installer.php';
+            require_once __DIR__ . '/installer.php';
             new LoginLogger\Installer();
         }
     }
 
     public function activate()
     {
-        require_once __DIR__ . '/inc/installer.php';
+        require_once __DIR__ . '/installer.php';
         new LoginLogger\Installer();
     }
-}
-
-if (defined('ABSPATH')) {
-    LoginLogger::instance();
 }

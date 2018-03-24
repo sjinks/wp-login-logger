@@ -28,7 +28,7 @@ class LoginLogger
 
     public function plugins_loaded()
     {
-        load_plugin_textdomain('login-logger', false, substr(__DIR__, strlen(\WP_PLUGIN_DIR . '/inc/')) . '/lang/');
+        load_plugin_textdomain('login-logger', false, dirname(substr(__DIR__, strlen(\WP_PLUGIN_DIR) + 1)) . '/lang/');
     }
 
     public function init()

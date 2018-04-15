@@ -65,7 +65,13 @@ final class Plugin
 		$this->_record_id = $wpdb->insert_id;
 	}
 
-	public function authenticate($result, $login, $password)
+	/**
+	 * @param mixed $result
+	 * @param string $login
+	 * @param string $password
+	 * @return mixed
+	 */
+	public function authenticate($result, $login, /** @scrutinizer ignore-unused */ $password)
 	{
 		if (!empty($login)) {
 			$this->log($login, 0, -1);

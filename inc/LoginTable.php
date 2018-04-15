@@ -54,16 +54,22 @@ class LoginTable extends \WP_List_Table
 		]);
 	}
 
-	public function get_columns()
+	public function get_columns() : array
 	{
-		return array(
+		return [
 			'username' => \__('Login', 'login-logger'),
 			'ip'       => \__('IP Address', 'login-logger'),
 			'dt'       => \__('Time', 'login-logger'),
 			'outcome'  => \__('Outcome', 'login-logger'),
-		);
+		];
 	}
 
+	/**
+	 * @param string $column_name
+	 * @param string $primary
+	 * @param array $hidden
+	 * @return string
+	 */
 	private static function get_classes(string $column_name, $primary, array $hidden) : string
 	{
 		$classes = "{$column_name} column-{$column_name}";
@@ -79,6 +85,25 @@ class LoginTable extends \WP_List_Table
 		return $classes;
 	}
 
+	/**
+	 * @param string $column_name
+	 * @param object $item
+	 * @return string
+	 */
+	private function single_cell(string $column_name, $item) : string
+	{
+		$method = 'process_' . $column_name;
+		if (\method_exists($this, $method)) {
+			return $this->$method($item);
+		}
+
+		return \esc_html($item->$column_name);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @see \WP_List_Table::single_row()
+	 */
 	public function single_row($item)
 	{
 		$s = '<tr>';
@@ -88,23 +113,21 @@ class LoginTable extends \WP_List_Table
 		foreach ($columns as $column_name => $column_display_name) {
 			$classes = self::get_classes($column_name, $primary, $hidden);
 
-			$s .= "<td class=\"{$classes}\">";
-
-			$method = 'process_' . $column_name;
-			if (\method_exists($this, $method)) {
-				$s .= $this->$method($item);
-			}
-			else {
-				$s .= \esc_html($item->$column_name);
-			}
-
-			$s .= "</td>";
+			$s .=
+				  "<td class=\"{$classes}\">"
+				. $this->single_cell($column_name, $item)
+				. '</td>'
+			;
 		}
 
 		$s .= '</tr>';
 		echo $s;
 	}
 
+	/**
+	 * @param object $item
+	 * @return string
+	 */
 	private function process_username($item) : string
 	{
 		$actions = [
@@ -119,12 +142,20 @@ class LoginTable extends \WP_List_Table
 		return $s;
 	}
 
-	private function process_dt($item)
+	/**
+	 * @param object $item
+	 * @return string
+	 */
+	private function process_dt($item) : string
 	{
 		return \date('d.m.Y H:i:s', $item->dt);
 	}
 
-	private function process_outcome($item)
+	/**
+	 * @param object $item
+	 * @return string
+	 */
+	private function process_outcome($item) : string
 	{
 		$lut = [
 			-1 => \__('Login attempt', 'login-logger'),

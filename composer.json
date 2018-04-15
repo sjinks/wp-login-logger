@@ -2,18 +2,29 @@
 	"name" : "wildwolf/wp-login-logger",
 	"type" : "wordpress-plugin",
 	"description" : "WordPress plugin to log login attempts",
-	"keywords" : ["wordpress", "plugin", "log", "login", "security"],
+	"keywords" : [
+		"wordpress",
+		"plugin",
+		"log",
+		"login",
+		"security"
+	],
 	"license" : "MIT",
 	"homepage" : "https://github.com/sjinks/wp-login-logger",
-	"authors" : [
-		{
+	"authors" : [{
 			"name" : "Volodymyr Kolesnykov",
 			"email" : "volodymyr@wildwolf.name",
 			"role" : "Developer"
 		}
 	],
+	"autoload": {
+		"psr-4": {
+			"WildWolf\\LoginLogger\\": "inc/"
+		}
+	},
 	"require" : {
 		"php" : ">=7.0.0",
-		"composer/installers" : "~1.0"
+		"composer/installers" : "~1.0",
+		"wildwolf/wp-class-autoloader" : "^1.0"
 	}
 }

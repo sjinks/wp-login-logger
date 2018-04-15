@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Plugin Name: WW Login Logger
  * Plugin URI: https://github.com/sjinks/wp-login-logger
@@ -11,9 +10,16 @@
  * Domain Path: /lang
  */
 
-if (defined('ABSPATH')) {
-    require __DIR__ . '/inc/login-logger.php';
-    $instance = WildWolf\LoginLogger::instance();
-    register_activation_hook(__FILE__, [$instance, 'activate']);
-    unset($instance);
+defined('ABSPATH') || die();
+
+if (defined('VENDOR_PATH')) {
+	require VENDOR_PATH . '/vendor/autoload.php';
 }
+elseif (file_exists(__DIR__ . '/vendor/autoload.php')) {
+	require __DIR__ . '/vendor/autoload.php';
+}
+elseif (file_exists(ABSPATH . 'vendor/autoload.php')) {
+	require ABSPATH . 'vendor/autoload.php';
+}
+
+WildWolf\LoginLogger\Plugin::instance();

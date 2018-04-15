@@ -3,14 +3,17 @@ msgid ""
 msgstr ""
 "Language: uk\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Language: uk\n"
+"X-Source-Language: C\n"
 
-#: ../views/logins.php:3 ../inc/login-logger.php:89
+#: ../views/logins.php:3 ../inc/Admin.php:30
 msgid "Login Log"
 msgstr "Журнал входів"
 
-#: ../views/logins.php:13 ../inc/logintable.php:69
+#: ../views/logins.php:13 ../inc/LoginTable.php:60
 msgid "Login"
 msgstr "Логін"
 
@@ -18,7 +21,7 @@ msgstr "Логін"
 msgid "All"
 msgstr "Усі"
 
-#: ../views/logins.php:25 ../inc/logintable.php:70
+#: ../views/logins.php:25 ../inc/LoginTable.php:61
 msgid "IP Address"
 msgstr "IP-адреса"
 
@@ -26,35 +29,39 @@ msgstr "IP-адреса"
 msgid "Search"
 msgstr "Шукати"
 
-#: ../inc/logintable.php:12
+#: ../views/history.php:3 ../inc/Admin.php:31
+msgid "Login History"
+msgstr "Історія входів"
+
+#: ../inc/LoginTable.php:9
 msgid "Record"
 msgstr "Запис"
 
-#: ../inc/logintable.php:13
+#: ../inc/LoginTable.php:10
 msgid "Records"
 msgstr "Записи"
 
-#: ../inc/logintable.php:71
+#: ../inc/LoginTable.php:62
 msgid "Time"
 msgstr "Час"
 
-#: ../inc/logintable.php:72
+#: ../inc/LoginTable.php:63
 msgid "Outcome"
 msgstr "Результат"
 
-#: ../inc/logintable.php:112
+#: ../inc/LoginTable.php:134
 #, php-format
 msgid "<a href=\"%s\">Profile</a>"
 msgstr "<a href=\"%s\">Профіль</a>"
 
-#: ../inc/logintable.php:131
+#: ../inc/LoginTable.php:161
 msgid "Login attempt"
 msgstr "Спроба входу"
 
-#: ../inc/logintable.php:132
+#: ../inc/LoginTable.php:162
 msgid "Login failed"
 msgstr "Невдача"
 
-#: ../inc/logintable.php:133
+#: ../inc/LoginTable.php:163
 msgid "Login OK"
 msgstr "Вхід успішний"

@@ -1,8 +1,8 @@
-#: ../views/logins.php:3 ../inc/login-logger.php:89
+#: ../views/logins.php:3 ../inc/Admin.php:30
 msgid "Login Log"
 msgstr ""
 
-#: ../views/logins.php:13 ../inc/logintable.php:69
+#: ../views/logins.php:13 ../inc/LoginTable.php:60
 msgid "Login"
 msgstr ""
 
@@ -10,7 +10,7 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: ../views/logins.php:25 ../inc/logintable.php:70
+#: ../views/logins.php:25 ../inc/LoginTable.php:61
 msgid "IP Address"
 msgstr ""
 
@@ -18,35 +18,39 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: ../inc/logintable.php:12
+#: ../views/history.php:3 ../inc/Admin.php:31
+msgid "Login History"
+msgstr ""
+
+#: ../inc/LoginTable.php:9
 msgid "Record"
 msgstr ""
 
-#: ../inc/logintable.php:13
+#: ../inc/LoginTable.php:10
 msgid "Records"
 msgstr ""
 
-#: ../inc/logintable.php:71
+#: ../inc/LoginTable.php:62
 msgid "Time"
 msgstr ""
 
-#: ../inc/logintable.php:72
+#: ../inc/LoginTable.php:63
 msgid "Outcome"
 msgstr ""
 
-#: ../inc/logintable.php:112
+#: ../inc/LoginTable.php:134
 #, php-format
 msgid "<a href=\"%s\">Profile</a>"
 msgstr ""
 
-#: ../inc/logintable.php:131
+#: ../inc/LoginTable.php:161
 msgid "Login attempt"
 msgstr ""
 
-#: ../inc/logintable.php:132
+#: ../inc/LoginTable.php:162
 msgid "Login failed"
 msgstr ""
 
-#: ../inc/logintable.php:133
+#: ../inc/LoginTable.php:163
 msgid "Login OK"
 msgstr ""

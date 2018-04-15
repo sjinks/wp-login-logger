@@ -57,11 +57,26 @@ class LoginTable extends \WP_List_Table
 	public function get_columns()
 	{
 		return array(
-			'username' => __('Login', 'login-logger'),
-			'ip'       => __('IP Address', 'login-logger'),
-			'dt'       => __('Time', 'login-logger'),
-			'outcome'  => __('Outcome', 'login-logger'),
+			'username' => \__('Login', 'login-logger'),
+			'ip'       => \__('IP Address', 'login-logger'),
+			'dt'       => \__('Time', 'login-logger'),
+			'outcome'  => \__('Outcome', 'login-logger'),
 		);
+	}
+
+	private static function get_classes(string $column_name, $primary, array $hidden) : string
+	{
+		$classes = "{$column_name} column-{$column_name}";
+
+		if ($primary === $column_name) {
+			$classes .= ' has-row-actions column-primary';
+		}
+
+		if (\in_array($column_name, $hidden)) {
+			$classes .= ' hidden';
+		}
+
+		return $classes;
 	}
 
 	public function single_row($item)
@@ -71,14 +86,7 @@ class LoginTable extends \WP_List_Table
 		list($columns, $hidden, $sortable, $primary) = $this->get_column_info();
 
 		foreach ($columns as $column_name => $column_display_name) {
-			$classes = "{$column_name} column-{$column_name}";
-			if ($primary === $column_name) {
-				$classes .= ' has-row-actions column-primary';
-			}
-
-			if (in_array($column_name, $hidden)) {
-				$classes .= ' hidden';
-			}
+			$classes = self::get_classes($column_name, $primary, $hidden);
 
 			$s .= "<td class=\"{$classes}\">";
 
@@ -97,34 +105,34 @@ class LoginTable extends \WP_List_Table
 		echo $s;
 	}
 
-    private function process_username($item)
-    {
-        $actions = [
-            'view' => sprintf(__('<a href="%s">Profile</a>'), admin_url('user-edit.php?user_id=' . $item->user_id))
-        ];
+	private function process_username($item) : string
+	{
+		$actions = [
+			'view' => \sprintf(\__('<a href="%s">Profile</a>'), \admin_url('user-edit.php?user_id=' . $item->user_id))
+		];
 
-        $s = esc_html($item->username);
-        if ($item->user_id) {
-            $s .= $this->row_actions($actions, false);
-        }
+		$s = \esc_html($item->username);
+		if ($item->user_id) {
+			$s .= $this->row_actions($actions, false);
+		}
 
-        return $s;
-    }
+		return $s;
+	}
 
-    private function process_dt($item)
-    {
-        return date('d.m.Y H:i:s', $item->dt);
-    }
+	private function process_dt($item)
+	{
+		return \date('d.m.Y H:i:s', $item->dt);
+	}
 
-    private function process_outcome($item)
-    {
-        $lut = [
-            -1 => __('Login attempt', 'login-logger'),
-             0 => __('Login failed', 'login-logger'),
-             1 => __('Login OK', 'login-logger'),
-        ];
+	private function process_outcome($item)
+	{
+		$lut = [
+			-1 => \__('Login attempt', 'login-logger'),
+			 0 => \__('Login failed', 'login-logger'),
+			 1 => \__('Login OK', 'login-logger'),
+		];
 
-        $s = $lut[$item->outcome] ?? $item->outcome;
-        return $s;
-    }
+		$s = $lut[$item->outcome] ?? $item->outcome;
+		return $s;
+	}
 }

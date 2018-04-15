@@ -7,7 +7,6 @@ build:
             dependencies:
                 before:
                     - composer require --dev johnpbloch/wordpress
-        tests: false
 filter:
     excluded_paths:
         - 'tests/*'

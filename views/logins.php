@@ -4,7 +4,7 @@
 
 	<form action="<?php echo admin_url('tools.php'); ?>" method="get">
 <?php
-$table = new \WildWolf\LoginLogger\LoginTable(['screen' => 'psb-login-log']);
+$table = new \WildWolf\LoginLogger\LoginTable(['screen' => 'login-log']);
 $table->prepare_items();
 ?>
 	<table>
@@ -29,7 +29,7 @@ $table->prepare_items();
 				<td>&nbsp;</td>
 				<td>
 					<?php submit_button(__('Search', 'login-logger'), 'primary', 'submit', false); ?>
-					<input type="hidden" name="page" value="psb-login-log"/>
+					<input type="hidden" name="page" value="login-log"/>
 				</td>
 			</tr>
 		</tbody>

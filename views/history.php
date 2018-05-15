@@ -6,7 +6,7 @@
 		<input type="hidden" name="page" value="login-history"/>
 <?php
 $_GET['user'] = wp_get_current_user()->ID;
-$table = new \WildWolf\LoginLogger\LoginTable(['screen' => 'psb-login-log']);
+$table = new \WildWolf\LoginLogger\LoginTable(['screen' => 'login-history']);
 $table->prepare_items();
 $table->display();
 ?>

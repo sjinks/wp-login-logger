@@ -5,11 +5,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
 
-#: ../views/logins.php:3 ../inc/Admin.php:30
+#: ../views/logins.php:3 ../inc/Admin.php:43
 msgid "Login Log"
 msgstr "Журнал входов"
 
@@ -21,7 +22,7 @@ msgstr "Логин"
 msgid "All"
 msgstr "Все"
 
-#: ../views/logins.php:25 ../inc/LoginTable.php:61
+#: ../views/logins.php:25 ../inc/SessionTable.php:53 ../inc/LoginTable.php:61
 msgid "IP Address"
 msgstr "IP-адрес"
 
@@ -29,17 +30,55 @@ msgstr "IP-адрес"
 msgid "Search"
 msgstr "Искать"
 
-#: ../views/history.php:3 ../inc/Admin.php:31
+#: ../views/history.php:3 ../views/sessions.php:12 ../views/sessions.php:14
+#: ../inc/Admin.php:44
 msgid "Login History"
 msgstr "История входов"
 
-#: ../inc/LoginTable.php:9
+#: ../views/sessions.php:2 ../inc/Admin.php:60
+msgid "Sessions"
+msgstr "Сеансы"
+
+#: ../views/sessions.php:10
+#, php-format
+msgid "Last login date: %s"
+msgstr "Дата последнего входа: %s"
+
+#: ../inc/SessionTable.php:14 ../inc/LoginTable.php:9
 msgid "Record"
 msgstr "Запись"
 
-#: ../inc/LoginTable.php:10
+#: ../inc/SessionTable.php:15 ../inc/LoginTable.php:10
 msgid "Records"
 msgstr "Записи"
+
+#: ../inc/SessionTable.php:51
+msgid "Created"
+msgstr "Создан"
+
+#: ../inc/SessionTable.php:52
+msgid "Expires"
+msgstr "Истекает"
+
+#: ../inc/SessionTable.php:54
+msgid "User Agent"
+msgstr "Бразуер"
+
+#: ../inc/SessionTable.php:87
+msgid "Log Out"
+msgstr "Выйти"
+
+#: ../inc/Admin.php:88
+msgid "N/A"
+msgstr "Н/Д"
+
+#: ../inc/Admin.php:119
+msgid "Could not terminate the session. Please try again."
+msgstr "Не удалось завершить сеанс. Пожалуйста, попытайтесь ещё раз."
+
+#: ../inc/Admin.php:128
+msgid "Session has been terminated."
+msgstr "Сеанс завершён."
 
 #: ../inc/LoginTable.php:62
 msgid "Time"

@@ -110,4 +110,11 @@ final class Plugin
 			new Installer();
 		}
 	}
+
+	public static function getLastLoginDate(int $user) : int
+	{
+		global $wpdb;
+		$dt = $wpdb->get_var($wpdb->prepare("SELECT dt FROM {$wpdb->prefix}login_log WHERE user_id = %d AND outcome = 1 ORDER BY dt DESC LIMIT 1", $user));
+		return $dt ?? -1;
+	}
 }

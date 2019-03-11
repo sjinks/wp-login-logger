@@ -1,4 +1,4 @@
-#: ../views/logins.php:3 ../inc/Admin.php:30
+#: ../views/logins.php:3 ../inc/Admin.php:43
 msgid "Login Log"
 msgstr ""
 
@@ -10,7 +10,7 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: ../views/logins.php:25 ../inc/LoginTable.php:61
+#: ../views/logins.php:25 ../inc/SessionTable.php:53 ../inc/LoginTable.php:61
 msgid "IP Address"
 msgstr ""
 
@@ -18,16 +18,54 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: ../views/history.php:3 ../inc/Admin.php:31
+#: ../views/history.php:3 ../views/sessions.php:12 ../views/sessions.php:14
+#: ../inc/Admin.php:44
 msgid "Login History"
 msgstr ""
 
-#: ../inc/LoginTable.php:9
+#: ../views/sessions.php:2 ../inc/Admin.php:60
+msgid "Sessions"
+msgstr ""
+
+#: ../views/sessions.php:10
+#, php-format
+msgid "Last login date: %s"
+msgstr ""
+
+#: ../inc/SessionTable.php:14 ../inc/LoginTable.php:9
 msgid "Record"
 msgstr ""
 
-#: ../inc/LoginTable.php:10
+#: ../inc/SessionTable.php:15 ../inc/LoginTable.php:10
 msgid "Records"
+msgstr ""
+
+#: ../inc/SessionTable.php:51
+msgid "Created"
+msgstr ""
+
+#: ../inc/SessionTable.php:52
+msgid "Expires"
+msgstr ""
+
+#: ../inc/SessionTable.php:54
+msgid "User Agent"
+msgstr ""
+
+#: ../inc/SessionTable.php:87
+msgid "Log Out"
+msgstr ""
+
+#: ../inc/Admin.php:88
+msgid "N/A"
+msgstr ""
+
+#: ../inc/Admin.php:119
+msgid "Could not terminate the session. Please try again."
+msgstr ""
+
+#: ../inc/Admin.php:128
+msgid "Session has been terminated."
 msgstr ""
 
 #: ../inc/LoginTable.php:62

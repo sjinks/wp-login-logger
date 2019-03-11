@@ -108,7 +108,7 @@ class LoginTable extends \WP_List_Table
 	{
 		$s = '<tr>';
 
-		list($columns, $hidden, $sortable, $primary) = $this->get_column_info();
+		list($columns, $hidden, /* $sortable */, $primary) = $this->get_column_info();
 
 		foreach ($columns as $column_name => $column_display_name) {
 			$classes = self::get_classes($column_name, $primary, $hidden);

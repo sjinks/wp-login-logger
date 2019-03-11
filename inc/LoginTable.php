@@ -64,74 +64,19 @@ class LoginTable extends \WP_List_Table
 		];
 	}
 
-	/**
-	 * @param string $column_name
-	 * @param string $primary
-	 * @param array $hidden
-	 * @return string
-	 */
-	private static function get_classes(string $column_name, $primary, array $hidden) : string
+	protected function column_default($item, $column_name)
 	{
-		$classes = "{$column_name} column-{$column_name}";
-
-		if ($primary === $column_name) {
-			$classes .= ' has-row-actions column-primary';
-		}
-
-		if (\in_array($column_name, $hidden)) {
-			$classes .= ' hidden';
-		}
-
-		return $classes;
-	}
-
-	/**
-	 * @param string $column_name
-	 * @param object $item
-	 * @return string
-	 */
-	private function single_cell(string $column_name, $item) : string
-	{
-		$method = 'process_' . $column_name;
-		if (\method_exists($this, $method)) {
-			return $this->$method($item);
-		}
-
 		return \esc_html($item->$column_name);
 	}
 
 	/**
-	 * {@inheritDoc}
-	 * @see \WP_List_Table::single_row()
-	 */
-	public function single_row($item)
-	{
-		$s = '<tr>';
-
-		list($columns, $hidden, /* $sortable */, $primary) = $this->get_column_info();
-
-		foreach ($columns as $column_name => $column_display_name) {
-			$classes = self::get_classes($column_name, $primary, $hidden);
-
-			$s .=
-				  "<td class=\"{$classes}\">"
-				. $this->single_cell($column_name, $item)
-				. '</td>'
-			;
-		}
-
-		$s .= '</tr>';
-		echo $s;
-	}
-
-	/**
 	 * @param object $item
 	 * @return string
 	 */
-	private function process_username($item) : string
+	protected function column_username($item) : string
 	{
 		$actions = [
-			'view' => \sprintf(\__('<a href="%s">Profile</a>'), \admin_url('user-edit.php?user_id=' . $item->user_id))
+			'view' => \sprintf(\__('<a href="%s">Profile</a>'), \get_edit_user_link($item->user_id))
 		];
 
 		$s = \esc_html($item->username);
@@ -146,7 +91,7 @@ class LoginTable extends \WP_List_Table
 	 * @param object $item
 	 * @return string
 	 */
-	private function process_dt($item) : string
+	protected function column_dt($item) : string
 	{
 		return Admin::formatDateTime($item->dt);
 	}
@@ -155,7 +100,7 @@ class LoginTable extends \WP_List_Table
 	 * @param object $item
 	 * @return string
 	 */
-	private function process_outcome($item) : string
+	protected function column_outcome($item) : string
 	{
 		$lut = [
 			-1 => \__('Login attempt', 'login-logger'),

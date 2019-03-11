@@ -1,9 +1,6 @@
 <?php
 namespace WildWolf\LoginLogger;
 
-use function date_i18n;
-
-
 final class Admin
 {
 	public static function instance()

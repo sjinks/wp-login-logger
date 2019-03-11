@@ -90,9 +90,9 @@ final class Admin
 			$last = \__('N/A', 'login-logger');
 		}
 		else {
-			$date_format = \get_option('date_format');
-			$time_format = \get_option('time_format');
-			$last        = date_i18n($date_format . ' ' . $time_format, $last);
+			$date_format = (string)\get_option('date_format');
+			$time_format = (string)\get_option('time_format');
+			$last        = \date_i18n($date_format . ' ' . $time_format, $last);
 		}
 
 		$params = [

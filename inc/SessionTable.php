@@ -63,9 +63,9 @@ class SessionTable extends \WP_List_Table
 
 	private static function formatDateTime(int $dt) : string
 	{
-		$date_format = \get_option('date_format');
-		$time_format = \get_option('time_format');
-		return date_i18n($date_format . ' ' . $time_format, $dt);
+		$date_format = (string)\get_option('date_format');
+		$time_format = (string)\get_option('time_format');
+		return \date_i18n($date_format . ' ' . $time_format, $dt);
 	}
 
 	protected function column_login($item)

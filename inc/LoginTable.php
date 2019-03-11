@@ -148,7 +148,7 @@ class LoginTable extends \WP_List_Table
 	 */
 	private function process_dt($item) : string
 	{
-		return \date('d.m.Y H:i:s', $item->dt);
+		return Admin::formatDateTime($item->dt);
 	}
 
 	/**

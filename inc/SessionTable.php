@@ -61,21 +61,14 @@ class SessionTable extends \WP_List_Table
 		return \esc_html($item[$column_name]);
 	}
 
-	private static function formatDateTime(int $dt) : string
-	{
-		$date_format = (string)\get_option('date_format');
-		$time_format = (string)\get_option('time_format');
-		return \date_i18n($date_format . ' ' . $time_format, $dt);
-	}
-
 	protected function column_login($item)
 	{
-		return self::formatDateTime($item['login']);
+		return Admin::formatDateTime($item['login']);
 	}
 
 	protected function column_expiration($item)
 	{
-		return self::formatDateTime($item['expiration']);
+		return Admin::formatDateTime($item['expiration']);
 	}
 
 	protected function column_kill($item)

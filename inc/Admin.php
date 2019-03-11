@@ -87,9 +87,7 @@ final class Admin
 			$last = \__('N/A', 'login-logger');
 		}
 		else {
-			$date_format = (string)\get_option('date_format');
-			$time_format = (string)\get_option('time_format');
-			$last        = \date_i18n($date_format . ' ' . $time_format, $last);
+			$last = self::formatDateTime($last);
 		}
 
 		$params = [
@@ -125,5 +123,12 @@ final class Admin
 		$method->invoke($manager, $token, null);
 
 		\wp_send_json_success(['message' => \__('Session has been terminated.', 'login-logger')]);
+	}
+
+	public static function formatDateTime(int $dt) : string
+	{
+		$date_format = (string)\get_option('date_format');
+		$time_format = (string)\get_option('time_format');
+		return \date_i18n($date_format . ' ' . $time_format, $dt);
 	}
 }

@@ -22,4 +22,5 @@ elseif (file_exists(ABSPATH . 'vendor/autoload.php')) {
 	require ABSPATH . 'vendor/autoload.php';
 }
 
+WildWolf\WordPress\Autoloader::register();
 WildWolf\LoginLogger\Plugin::instance();

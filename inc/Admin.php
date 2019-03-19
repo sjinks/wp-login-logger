@@ -20,8 +20,6 @@ final class Admin
 
 	public function init()
 	{
-		\load_plugin_textdomain('login-logger', /** @scrutinizer ignore-type */ false, \plugin_basename(\dirname(__DIR__)) . '/lang/');
-
 		\add_action('admin_menu', [$this, 'admin_menu']);
 
 		if (\current_user_can('manage_options')) {

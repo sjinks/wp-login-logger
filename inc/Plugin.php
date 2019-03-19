@@ -33,9 +33,13 @@ final class Plugin
 
 	public function init()
 	{
-		\add_action('wp_login',        [$this, 'wp_login'],        9999, 2);
-		\add_action('wp_login_failed', [$this, 'wp_login_failed'], 0, 1);
-		\add_filter('authenticate',    [$this, 'authenticate'],    0, 3);
+		\load_plugin_textdomain('login-logger', /** @scrutinizer ignore-type */ false, \plugin_basename(\dirname(__DIR__)) . '/lang/');
+
+		\add_action('wp_login',          [$this, 'wp_login'],        9999, 2);
+		\add_action('wp_login_failed',   [$this, 'wp_login_failed'], 0, 1);
+		\add_filter('authenticate',      [$this, 'authenticate'],    0, 3);
+		\add_action('admin_bar_menu',    [$this, 'admin_bar_menu']);
+		\add_action('login_form_logout', [$this, 'login_form_logout']);
 
 		if (\is_admin()) {
 			Admin::instance();
@@ -101,6 +105,22 @@ final class Plugin
 			$this->log($login, 0, 0);
 			$this->_record_id = 0;
 		}
+	}
+
+	public function admin_bar_menu(\WP_Admin_Bar $wp_admin_bar)
+	{
+		$wp_admin_bar->add_menu([
+			'parent' => 'user-actions',
+			'id'     => 'logout-everywhere',
+			'title'  => \__('Log Out Everywhere', 'login-logger'),
+			'href'   => \add_query_arg(['everywhere' => 1], \wp_logout_url()),
+		]);
+	}
+
+	public function login_form_logout()
+	{
+		\check_admin_referer('log-out');
+		\wp_destroy_other_sessions();
 	}
 
 	public function maybeUpdateSchema()

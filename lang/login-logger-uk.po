@@ -10,7 +10,7 @@ msgstr ""
 "X-Language: uk\n"
 "X-Source-Language: C\n"
 
-#: ../views/logins.php:3 ../inc/Admin.php:43
+#: ../views/logins.php:3 ../inc/Admin.php:40
 msgid "Login Log"
 msgstr "Журнал входів"
 
@@ -31,11 +31,11 @@ msgid "Search"
 msgstr "Шукати"
 
 #: ../views/history.php:3 ../views/sessions.php:12 ../views/sessions.php:14
-#: ../inc/Admin.php:44
+#: ../inc/Admin.php:41
 msgid "Login History"
 msgstr "Історія входів"
 
-#: ../views/sessions.php:2 ../inc/Admin.php:60
+#: ../views/sessions.php:2 ../inc/Admin.php:57
 msgid "Sessions"
 msgstr "Сеанси"
 
@@ -64,19 +64,19 @@ msgstr "Закінчується"
 msgid "User Agent"
 msgstr "Браузер"
 
-#: ../inc/SessionTable.php:87
+#: ../inc/SessionTable.php:80
 msgid "Log Out"
 msgstr "Выйти"
 
-#: ../inc/Admin.php:88
+#: ../inc/Admin.php:85
 msgid "N/A"
 msgstr "Н/Д"
 
-#: ../inc/Admin.php:119
+#: ../inc/Admin.php:114
 msgid "Could not terminate the session. Please try again."
 msgstr "Не вдалося завершити сеанс. Будь ласка, спробуйте ще раз."
 
-#: ../inc/Admin.php:128
+#: ../inc/Admin.php:123
 msgid "Session has been terminated."
 msgstr "Сеанс завершено."
 
@@ -88,19 +88,23 @@ msgstr "Час"
 msgid "Outcome"
 msgstr "Результат"
 
-#: ../inc/LoginTable.php:134
+#: ../inc/LoginTable.php:79
 #, php-format
 msgid "<a href=\"%s\">Profile</a>"
 msgstr "<a href=\"%s\">Профіль</a>"
 
-#: ../inc/LoginTable.php:161
+#: ../inc/LoginTable.php:106
 msgid "Login attempt"
 msgstr "Спроба входу"
 
-#: ../inc/LoginTable.php:162
+#: ../inc/LoginTable.php:107
 msgid "Login failed"
 msgstr "Невдача"
 
-#: ../inc/LoginTable.php:163
+#: ../inc/LoginTable.php:108
 msgid "Login OK"
 msgstr "Вхід успішний"
+
+#: ../inc/Plugin.php:115
+msgid "Log Out Everywhere"
+msgstr "Вийти всюди"

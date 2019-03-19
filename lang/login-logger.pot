@@ -1,4 +1,4 @@
-#: ../views/logins.php:3 ../inc/Admin.php:43
+#: ../views/logins.php:3 ../inc/Admin.php:40
 msgid "Login Log"
 msgstr ""
 
@@ -19,11 +19,11 @@ msgid "Search"
 msgstr ""
 
 #: ../views/history.php:3 ../views/sessions.php:12 ../views/sessions.php:14
-#: ../inc/Admin.php:44
+#: ../inc/Admin.php:41
 msgid "Login History"
 msgstr ""
 
-#: ../views/sessions.php:2 ../inc/Admin.php:60
+#: ../views/sessions.php:2 ../inc/Admin.php:57
 msgid "Sessions"
 msgstr ""
 
@@ -52,19 +52,19 @@ msgstr ""
 msgid "User Agent"
 msgstr ""
 
-#: ../inc/SessionTable.php:87
+#: ../inc/SessionTable.php:80
 msgid "Log Out"
 msgstr ""
 
-#: ../inc/Admin.php:88
+#: ../inc/Admin.php:85
 msgid "N/A"
 msgstr ""
 
-#: ../inc/Admin.php:119
+#: ../inc/Admin.php:114
 msgid "Could not terminate the session. Please try again."
 msgstr ""
 
-#: ../inc/Admin.php:128
+#: ../inc/Admin.php:123
 msgid "Session has been terminated."
 msgstr ""
 
@@ -76,19 +76,23 @@ msgstr ""
 msgid "Outcome"
 msgstr ""
 
-#: ../inc/LoginTable.php:134
+#: ../inc/LoginTable.php:79
 #, php-format
 msgid "<a href=\"%s\">Profile</a>"
 msgstr ""
 
-#: ../inc/LoginTable.php:161
+#: ../inc/LoginTable.php:106
 msgid "Login attempt"
 msgstr ""
 
-#: ../inc/LoginTable.php:162
+#: ../inc/LoginTable.php:107
 msgid "Login failed"
 msgstr ""
 
-#: ../inc/LoginTable.php:163
+#: ../inc/LoginTable.php:108
 msgid "Login OK"
+msgstr ""
+
+#: ../inc/Plugin.php:115
+msgid "Log Out Everywhere"
 msgstr ""

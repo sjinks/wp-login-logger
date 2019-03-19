@@ -119,8 +119,10 @@ final class Plugin
 
 	public function login_form_logout()
 	{
-		\check_admin_referer('log-out');
-		\wp_destroy_other_sessions();
+		if (!empty($_GET['everywhere'])) {
+			\check_admin_referer('log-out');
+			\wp_destroy_other_sessions();
+		}
 	}
 
 	public function maybeUpdateSchema()

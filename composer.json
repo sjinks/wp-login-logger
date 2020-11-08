@@ -25,6 +25,6 @@
 	"require" : {
 		"php" : ">=7.0.0",
 		"composer/installers" : "~1.0",
-		"wildwolf/wp-class-autoloader" : "^1.0"
+		"wildwolf/wp-class-autoloader" : "^5.5.0"
 	}
 }

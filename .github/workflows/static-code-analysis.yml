@@ -35,13 +35,14 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-interaction
 
+      - name: Archive the source
+        run: touch plugin.tgz && tar czf plugin.tgz --exclude=./wordpress/ --exclude=./node_modules/ --exclude=.git/ --exclude="*.tgz" ./
+
       - name: Upload the source
         uses: actions/upload-artifact@v2
         with:
-          name: source
-          path: |
-            .
-            !.git
+          name: plugin.tgz
+          path: plugin.tgz
           retention-days: 1
 
   psalm:
@@ -52,7 +53,10 @@ jobs:
       - name: Download the source code
         uses: actions/download-artifact@v2
         with:
-          name: source
+          name: plugin.tgz
+
+      - name: Extract the source code
+        run: tar xzf plugin.tgz && rm -f plugin.tgz
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -70,7 +74,10 @@ jobs:
       - name: Download the source code
         uses: actions/download-artifact@v2
         with:
-          name: source
+          name: plugin.tgz
+
+      - name: Extract the source code
+        run: tar xzf plugin.tgz && rm -f plugin.tgz
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -78,4 +85,4 @@ jobs:
           php-version: ${{ env.PHP_VERSION }}
 
       - name: Run phpstan
-        run: vendor/bin/phpstan -c phpstan.neon.dist
+        run: vendor/bin/phpstan analyze -c phpstan.neon.dist

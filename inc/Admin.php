@@ -9,7 +9,7 @@ final class Admin
 	{
 		/** @var self|null $self */
 		static $self = null;
-		if (!$self) {
+		if ($self === null) {
 			$self = new self();
 		}
 
@@ -54,7 +54,12 @@ final class Admin
 		}
 	}
 
-	public function user_row_actions(array $actions, \WP_User $user) : array
+	/**
+	 * @param array<string,string> $actions
+	 * @param \WP_User $user
+	 * @return array<string,string>
+	 */
+	public function user_row_actions(array $actions, \WP_User $user): array
 	{
 		$link = \get_edit_user_link($user->ID) . '#user-sessions';
 		$actions['login-history'] = '<a href="' . $link . '">' . \__('Sessions', 'login-logger') . '</a>';
@@ -63,6 +68,9 @@ final class Admin
 
 	/**
 	 * @psalm-suppress UnusedParam
+	 * @param string $view
+	 * @param mixed[] $params
+	 * @return void
 	 */
 	private static function render(string $view, array $params = []): void
 	{
@@ -110,13 +118,12 @@ final class Admin
 		$nonce = $_POST['nonce'] ?? '';
 		/** @var string */
 		$token = $_POST['token'] ?? '';
-		if ($user && (!\current_user_can('edit_user', $user->ID) || !\wp_verify_nonce($nonce, 'destroy_session-' . $token))) {
+		if ($user !== false && (!\current_user_can('edit_user', $user->ID) || \wp_verify_nonce($nonce, 'destroy_session-' . $token) === false)) {
 			$user = false;
 		}
 
-		if (!$user) {
+		if ($user === false) {
 			\wp_send_json_error(['message' => \__('Could not terminate the session. Please try again.', 'login-logger')]);
-			assert(false);
 		}
 
 		/** @var \WP_User $user */

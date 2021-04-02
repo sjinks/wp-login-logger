@@ -11,7 +11,7 @@ class SessionTable extends \WP_List_Table
 	private $user_id;
 
 	/**
-	 * @param array $args
+	 * @param mixed[] $args
 	 */
 	public function __construct($args = array())
 	{
@@ -24,6 +24,9 @@ class SessionTable extends \WP_List_Table
 		$this->user_id = $args['user_id'] ?? \get_current_user_id();
 	}
 
+	/**
+	 * @return void
+	 */
 	public function prepare_items()
 	{
 		$manager    = \WP_Session_Tokens::get_instance($this->user_id);
@@ -50,6 +53,9 @@ class SessionTable extends \WP_List_Table
 		]);
 	}
 
+	/**
+	 * @return array<string,string>
+	 */
 	public function get_columns()
 	{
 		return [
@@ -61,21 +67,39 @@ class SessionTable extends \WP_List_Table
 		];
 	}
 
+	/**
+	 * @psalm-suppress MoreSpecificImplementedParamType
+	 * @param string[] $item
+	 * @param string $column_name
+	 * @return string
+	 */
 	protected function column_default($item, $column_name)
 	{
 		return \esc_html($item[$column_name]);
 	}
 
+	/**
+	 * @param string[] $item
+	 * @return string
+	 */
 	protected function column_login(array $item): string
 	{
-		return Admin::formatDateTime($item['login']);
+		return \esc_html($item['login']);
 	}
 
+	/**
+	 * @param string[] $item
+	 * @return string
+	 */
 	protected function column_expiration(array $item): string
 	{
-		return Admin::formatDateTime($item['expiration']);
+		return Admin::formatDateTime((int)$item['expiration']);
 	}
 
+	/**
+	 * @param string[] $item
+	 * @return string
+	 */
 	protected function column_kill(array $item): string
 	{
 		return sprintf(
@@ -86,6 +110,10 @@ class SessionTable extends \WP_List_Table
 		);
 	}
 
+	/**
+	 * @param string $which
+	 * @return void
+	 */
 	protected function display_tablenav(/** @scrutinizer ignore-unused */ $which)
 	{
 		// Intentionally empty

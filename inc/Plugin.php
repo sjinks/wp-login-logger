@@ -19,7 +19,7 @@ final class Plugin
 	{
 		/** @var self|null $self */
 		static $self = null;
-		if (!$self) {
+		if ($self === null) {
 			$self = new self();
 		}
 
@@ -143,7 +143,10 @@ final class Plugin
 	{
 		/** @var \wpdb $wpdb */
 		global $wpdb;
-		$dt = $wpdb->get_var($wpdb->prepare("SELECT dt FROM {$wpdb->prefix}login_log WHERE user_id = %d AND outcome = 1 ORDER BY dt DESC LIMIT 1", $user));
+
+		/** @var string */
+		$query = $wpdb->prepare("SELECT dt FROM {$wpdb->prefix}login_log WHERE user_id = %d AND outcome = 1 ORDER BY dt DESC LIMIT 1", $user);
+		$dt = $wpdb->get_var($query);
 		return $dt !== null ? (int)$dt : -1;
 	}
 }

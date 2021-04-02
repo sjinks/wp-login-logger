@@ -6,7 +6,7 @@ namespace WildWolf\LoginLogger;
 class LoginTable extends \WP_List_Table
 {
 	/**
-	 * @param array $args
+	 * @param mixed[] $args
 	 */
 	public function __construct($args = array())
 	{
@@ -17,6 +17,9 @@ class LoginTable extends \WP_List_Table
 		]);
 	}
 
+	/**
+	 * @return array{string,string}
+	 */
 	private function buildSearchQuery(): array
 	{
 		/** @var \wpdb $wpdb */
@@ -42,6 +45,9 @@ class LoginTable extends \WP_List_Table
 		return [$total, $query];
 	}
 
+	/**
+	 * @return void
+	 */
 	public function prepare_items()
 	{
 		/** @var \wpdb $wpdb */
@@ -52,8 +58,10 @@ class LoginTable extends \WP_List_Table
 		$per_page    = $this->get_items_per_page('psb_login_log');
 		$query      .= ' LIMIT ' . ($paged - 1) * $per_page . ', ' . $per_page;
 
-		$total_items = $wpdb->get_var($total);
-		$this->items = $total_items ? $wpdb->get_results($query) : [];
+		$total_items = (int)$wpdb->get_var($total);
+		/** @var string[] */
+		$items = $total_items !== 0 ? $wpdb->get_results($query, \ARRAY_A) : [];
+		$this->items = $items;
 
 		$this->set_pagination_args([
 			'total_items' => $total_items,
@@ -61,6 +69,9 @@ class LoginTable extends \WP_List_Table
 		]);
 	}
 
+	/**
+	 * @return array<string,string>
+	 */
 	public function get_columns()
 	{
 		return [
@@ -71,23 +82,29 @@ class LoginTable extends \WP_List_Table
 		];
 	}
 
+	/**
+	 * @psalm-suppress MoreSpecificImplementedParamType
+	 * @param string[] $item
+	 * @param string $column_name
+	 * @return string
+	 */
 	protected function column_default($item, $column_name)
 	{
-		return \esc_html($item->$column_name);
+		return \esc_html($item[$column_name]);
 	}
 
 	/**
-	 * @param object $item
+	 * @param string[] $item
 	 * @return string
 	 */
-	protected function column_username($item): string
+	protected function column_username(array $item): string
 	{
 		$actions = [
-			'view' => \sprintf(\__('<a href="%s">Profile</a>'), \get_edit_user_link($item->user_id))
+			'view' => \sprintf(\__('<a href="%s">Profile</a>'), \get_edit_user_link((int)$item['user_id']))
 		];
 
-		$s = \esc_html($item->username);
-		if ($item->user_id) {
+		$s = \esc_html($item['username']);
+		if (!empty($item['user_id'])) {
 			$s .= $this->row_actions($actions, false);
 		}
 
@@ -95,19 +112,19 @@ class LoginTable extends \WP_List_Table
 	}
 
 	/**
-	 * @param object $item
+	 * @param string[] $item
 	 * @return string
 	 */
-	protected function column_dt($item): string
+	protected function column_dt(array $item): string
 	{
-		return Admin::formatDateTime($item->dt);
+		return Admin::formatDateTime((int)$item['dt']);
 	}
 
 	/**
-	 * @param object $item
+	 * @param string[] $item
 	 * @return string
 	 */
-	protected function column_outcome($item) : string
+	protected function column_outcome(array $item): string
 	{
 		$lut = [
 			-1 => \__('Login attempt', 'login-logger'),
@@ -115,6 +132,6 @@ class LoginTable extends \WP_List_Table
 			 1 => \__('Login OK', 'login-logger'),
 		];
 
-		return $lut[$item->outcome] ?? $item->outcome;
+		return $lut[(int)$item['outcome']] ?? $item['outcome'];
 	}
 }

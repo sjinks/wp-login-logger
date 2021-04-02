@@ -3,10 +3,13 @@ name: Static Code Analysis
 on:
   push:
 
+env:
+  PHP_VERSION: "7.3"
+
 jobs:
-  psalm:
+  prepare:
     runs-on: ubuntu-latest
-    name: Psalm
+    name: Prepare the source code
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       - name: Check out source code
@@ -15,7 +18,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.3
+          php-version: ${{ env.PHP_VERSION }}
 
       - name: Get composer cache directory
         id: composer-cache
@@ -32,5 +35,47 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-interaction
 
+      - name: Upload the source
+        uses: actions/upload-artifact@v2
+        with:
+          name: source
+          path: |
+            .
+            !.git
+          retention-days: 1
+
+  psalm:
+    runs-on: ubuntu-latest
+    name: Psalm
+    needs: prepare
+    steps:
+      - name: Download the source code
+        uses: actions/download-artifact@v2
+        with:
+          name: source
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+
       - name: Run psalm
         run: vendor/bin/psalm
+
+  phpstan:
+    runs-on: ubuntu-latest
+    name: PHPStan
+    needs: prepare
+    steps:
+      - name: Download the source code
+        uses: actions/download-artifact@v2
+        with:
+          name: source
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+
+      - name: Run phpstan
+        run: vendor/bin/phpstan -c phpstan.neon.dist

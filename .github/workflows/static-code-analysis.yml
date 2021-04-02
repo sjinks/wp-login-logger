@@ -1,0 +1,36 @@
+name: Static Code Analysis
+
+on:
+  push:
+
+jobs:
+  psalm:
+    runs-on: ubuntu-latest
+    name: Psalm
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.3
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer packages
+        uses: actions/cache@v2.1.4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Run psalm
+        run: vendor/bin/pslam

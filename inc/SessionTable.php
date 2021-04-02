@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace WildWolf\LoginLogger;
 
 class SessionTable extends \WP_List_Table
@@ -8,6 +10,9 @@ class SessionTable extends \WP_List_Table
 	 */
 	private $user_id;
 
+	/**
+	 * @param array $args
+	 */
 	public function __construct($args = array())
 	{
 		parent::__construct([
@@ -45,7 +50,7 @@ class SessionTable extends \WP_List_Table
 		]);
 	}
 
-	public function get_columns() : array
+	public function get_columns()
 	{
 		return [
 			'login'      => \__('Created', 'login-logger'),
@@ -61,17 +66,17 @@ class SessionTable extends \WP_List_Table
 		return \esc_html($item[$column_name]);
 	}
 
-	protected function column_login($item)
+	protected function column_login(array $item): string
 	{
 		return Admin::formatDateTime($item['login']);
 	}
 
-	protected function column_expiration($item)
+	protected function column_expiration(array $item): string
 	{
 		return Admin::formatDateTime($item['expiration']);
 	}
 
-	protected function column_kill($item)
+	protected function column_kill(array $item): string
 	{
 		return sprintf(
 			'<button type="button" class="button hide-if-no-js destroy-session" data-token="%1$s" data-nonce="%2$s">%3$s</button>',
@@ -83,5 +88,6 @@ class SessionTable extends \WP_List_Table
 
 	protected function display_tablenav(/** @scrutinizer ignore-unused */ $which)
 	{
+		// Intentionally empty
 	}
 }

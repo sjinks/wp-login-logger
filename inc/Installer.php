@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace WildWolf\LoginLogger;
 
 class Installer
@@ -8,8 +10,9 @@ class Installer
 		$this->install();
 	}
 
-	private function install()
+	private function install(): void
 	{
+		/** @var \wpdb $wpdb */
 		global $wpdb;
 		$charset_collate = $wpdb->get_charset_collate();
 
@@ -23,6 +26,7 @@ class Installer
 		PRIMARY KEY  (id)
 		) {$charset_collate};";
 
+		/** @psalm-suppress UndefinedConstant, UnresolvableInclude */
 		require_once ABSPATH . '/wp-admin/includes/upgrade.php';
 		\dbDelta($sql);
 

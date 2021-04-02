@@ -1,8 +1,13 @@
 <?php
+declare(strict_types=1);
+
 namespace WildWolf\LoginLogger;
 
 class LoginTable extends \WP_List_Table
 {
+	/**
+	 * @param array $args
+	 */
 	public function __construct($args = array())
 	{
 		parent::__construct([
@@ -12,21 +17,22 @@ class LoginTable extends \WP_List_Table
 		]);
 	}
 
-	private function buildSearchQuery() : array
+	private function buildSearchQuery(): array
 	{
+		/** @var \wpdb $wpdb */
 		global $wpdb;
-		$query    = "SELECT username, user_id, INET6_NTOA(ip) AS ip, dt, outcome FROM {$wpdb->prefix}login_log";
-		$total    = "SELECT COUNT(*) FROM {$wpdb->prefix}login_log";
-		$where    = ['1=1'];
+		$query = "SELECT username, user_id, INET6_NTOA(ip) AS ip, dt, outcome FROM {$wpdb->prefix}login_log";
+		$total = "SELECT COUNT(*) FROM {$wpdb->prefix}login_log";
+		$where = ['1=1'];
 
 		$ip = $_GET['ip'] ?? '';
 		if ($ip) {
-			$where[] = \sprintf("INET6_NTOA(ip) = '%s'", $ip);
+			$where[] = $wpdb->prepare("INET6_NTOA(ip) = %s", $ip);
 		}
 
 		$user = $_GET['user'] ?? '';
 		if ($user) {
-			$where[] = \sprintf("user_id = '%u'", $user);
+			$where[] = $wpdb->prepare("user_id = %u", $user);
 		}
 
 		$where  = \join(' AND ', $where);
@@ -38,6 +44,7 @@ class LoginTable extends \WP_List_Table
 
 	public function prepare_items()
 	{
+		/** @var \wpdb $wpdb */
 		global $wpdb;
 		list($total, $query) = $this->buildSearchQuery();
 
@@ -54,7 +61,7 @@ class LoginTable extends \WP_List_Table
 		]);
 	}
 
-	public function get_columns() : array
+	public function get_columns()
 	{
 		return [
 			'username' => \__('Login', 'login-logger'),
@@ -73,7 +80,7 @@ class LoginTable extends \WP_List_Table
 	 * @param object $item
 	 * @return string
 	 */
-	protected function column_username($item) : string
+	protected function column_username($item): string
 	{
 		$actions = [
 			'view' => \sprintf(\__('<a href="%s">Profile</a>'), \get_edit_user_link($item->user_id))
@@ -91,7 +98,7 @@ class LoginTable extends \WP_List_Table
 	 * @param object $item
 	 * @return string
 	 */
-	protected function column_dt($item) : string
+	protected function column_dt($item): string
 	{
 		return Admin::formatDateTime($item->dt);
 	}
@@ -108,7 +115,6 @@ class LoginTable extends \WP_List_Table
 			 1 => \__('Login OK', 'login-logger'),
 		];
 
-		$s = $lut[$item->outcome] ?? $item->outcome;
-		return $s;
+		return $lut[$item->outcome] ?? $item->outcome;
 	}
 }

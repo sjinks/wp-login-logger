@@ -1,10 +1,13 @@
 <?php
+declare(strict_types=1);
+
 namespace WildWolf\LoginLogger;
 
 final class Admin
 {
-	public static function instance()
+	public static function instance(): self
 	{
+		/** @var self|null $self */
 		static $self = null;
 		if (!$self) {
 			$self = new self();
@@ -18,7 +21,7 @@ final class Admin
 		$this->init();
 	}
 
-	public function init()
+	public function init(): void
 	{
 		\add_action('admin_menu', [$this, 'admin_menu']);
 
@@ -35,7 +38,7 @@ final class Admin
 		}
 	}
 
-	public function admin_menu()
+	public function admin_menu(): void
 	{
 		\add_management_page(\__('Login Log', 'login-logger'), \__('Login Log', 'login-logger'), 'manage_options', 'login-log', [$this, 'mgmt_menu_page']);
 		\add_users_page(\__('Login History', 'login-logger'), \__('Login History', 'login-logger'), 'level_0', 'login-history', [$this, 'user_menu_page']);
@@ -44,7 +47,7 @@ final class Admin
 	/**
 	 * @param string $hook
 	 */
-	public function admin_enqueue_scripts($hook)
+	public function admin_enqueue_scripts($hook): void
 	{
 		if ('user-edit.php' === $hook || 'profile.php' === $hook) {
 			\wp_enqueue_script('wwa-login-logger-profile', \plugins_url('/assets/profile.min.js', \dirname(__DIR__) . '/plugin.php'), ['jquery'], '2019031100', true);
@@ -58,12 +61,16 @@ final class Admin
 		return $actions;
 	}
 
-	private static function render(string $view, array $params = [])
+	/**
+	 * @psalm-suppress UnusedParam
+	 */
+	private static function render(string $view, array $params = []): void
 	{
+		/** @psalm-suppress UnresolvableInclude */
 		require __DIR__ . '/../views/' . $view . '.php';
 	}
 
-	public function mgmt_menu_page()
+	public function mgmt_menu_page(): void
 	{
 		if (!\current_user_can('manage_options')) {
 			return;
@@ -72,12 +79,12 @@ final class Admin
 		self::render('logins');
 	}
 
-	public function user_menu_page()
+	public function user_menu_page(): void
 	{
 		self::render('history');
 	}
 
-	public function show_user_profile(\WP_User $user)
+	public function show_user_profile(\WP_User $user): void
 	{
 		$last = Plugin::getLastLoginDate($user->ID);
 
@@ -96,24 +103,23 @@ final class Admin
 		self::render('sessions', $params);
 	}
 
-	public function wp_ajax_wwall_destroy_session()
+	public function wp_ajax_wwall_destroy_session(): void
 	{
 		$user  = \get_userdata((int)($_POST['uid'] ?? -1));
+		/** @var string */
 		$nonce = $_POST['nonce'] ?? '';
+		/** @var string */
 		$token = $_POST['token'] ?? '';
-		if ($user) {
-			if (!\current_user_can('edit_user', $user->ID)) {
-				$user = false;
-			}
-			elseif (!\wp_verify_nonce($nonce, 'destroy_session-' . $token)) {
-				$user = false;
-			}
+		if ($user && (!\current_user_can('edit_user', $user->ID) || !\wp_verify_nonce($nonce, 'destroy_session-' . $token))) {
+			$user = false;
 		}
 
 		if (!$user) {
 			\wp_send_json_error(['message' => \__('Could not terminate the session. Please try again.', 'login-logger')]);
+			assert(false);
 		}
 
+		/** @var \WP_User $user */
 		$manager    = \WP_Session_Tokens::get_instance($user->ID);
 		$reflection = new \ReflectionClass($manager);
 		$method     = $reflection->getMethod('update_session');

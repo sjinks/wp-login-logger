@@ -10,20 +10,20 @@ $table->prepare_items();
 	<table>
 		<tbody>
 			<tr>
-				<td><?=__('Login', 'login-logger'); ?></td>
+				<th scope="row"><?=__('Login', 'login-logger'); ?></th>
 				<td>
 					<?php
 					wp_dropdown_users([
-					    'show'            => 'user_login',
-					    'selected'        => $_GET['user'] ?? '',
-					    'show_option_all' => __('All', 'login-logger')
+						'show'            => 'user_login',
+						'selected'        => stripslashes($_GET['user'] ?? ''),
+						'show_option_all' => __('All', 'login-logger')
 					]);
 					?>
 				</td>
 			</tr>
 			<tr>
-				<td><?=__('IP Address', 'login-logger'); ?></td>
-				<td><input type="text" name="ip" value="<?=esc_attr($_GET['ip'] ?? ''); ?>"/></td>
+				<th scope="row"><?=__('IP Address', 'login-logger'); ?></th>
+				<td><input type="text" name="ip" value="<?=esc_attr(stripslashes($_GET['ip'] ?? '')); ?>"/></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>

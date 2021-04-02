@@ -1,20 +1,23 @@
 <?php
+declare(strict_types=1);
+
 namespace WildWolf\LoginLogger;
 
 final class Plugin
 {
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	private $_record_id = 0;
 
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	public static $db_version = 1;
 
-	public static function instance()
+	public static function instance(): self
 	{
+		/** @var self|null $self */
 		static $self = null;
 		if (!$self) {
 			$self = new self();
@@ -31,7 +34,7 @@ final class Plugin
 		\add_action('activate_' . $basename, [$this, 'maybeUpdateSchema']);
 	}
 
-	public function init()
+	public function init(): void
 	{
 		\load_plugin_textdomain('login-logger', /** @scrutinizer ignore-type */ false, \plugin_basename(\dirname(__DIR__)) . '/lang/');
 
@@ -48,14 +51,12 @@ final class Plugin
 		$this->maybeUpdateSchema();
 	}
 
-	/**
-	 * @param string $login
-	 * @param int $user_id
-	 * @param int $outcome
-	 */
-	private function log($login, int $user_id, int $outcome)
+	private function log(string $login, int $user_id, int $outcome): void
 	{
+		/** @var \wpdb $wpdb */
 		global $wpdb;
+
+		/** @var string */
 		$ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
 
 		$wpdb->insert($wpdb->prefix . 'login_log', [
@@ -78,7 +79,8 @@ final class Plugin
 	public function authenticate($result, $login, /** @scrutinizer ignore-unused */ $password)
 	{
 		if (!empty($login)) {
-			$this->log($login, 0, -1);
+			/** @psalm-suppress RedundantCastGivenDocblockType */
+			$this->log((string)$login, 0, -1);
 		}
 
 		return $result;
@@ -87,27 +89,31 @@ final class Plugin
 	/**
 	 * @param string $login
 	 * @param \WP_User $user
+	 * @return void
 	 */
-	public function wp_login($login, \WP_User $user)
+	public function wp_login($login, \WP_User $user): void
 	{
 		if ($this->_record_id > 0) {
-			$this->log($login, $user->ID, 1);
+			/** @psalm-suppress RedundantCastGivenDocblockType */
+			$this->log((string)$login, $user->ID, 1);
 			$this->_record_id = 0;
 		}
 	}
 
 	/**
 	 * @param string $login
+	 * @return void
 	 */
-	public function wp_login_failed($login)
+	public function wp_login_failed($login): void
 	{
 		if (!empty($login)) {
-			$this->log($login, 0, 0);
+			/** @psalm-suppress RedundantCastGivenDocblockType */
+			$this->log((string)$login, 0, 0);
 			$this->_record_id = 0;
 		}
 	}
 
-	public function admin_bar_menu(\WP_Admin_Bar $wp_admin_bar)
+	public function admin_bar_menu(\WP_Admin_Bar $wp_admin_bar): void
 	{
 		$wp_admin_bar->add_menu([
 			'parent' => 'user-actions',
@@ -117,7 +123,7 @@ final class Plugin
 		]);
 	}
 
-	public function login_form_logout()
+	public function login_form_logout(): void
 	{
 		if (!empty($_GET['everywhere'])) {
 			\check_admin_referer('log-out');
@@ -125,18 +131,19 @@ final class Plugin
 		}
 	}
 
-	public function maybeUpdateSchema()
+	public function maybeUpdateSchema(): void
 	{
-		$ver = \get_option('ww_login_logger_dbver', 0);
+		$ver = (int)\get_option('ww_login_logger_dbver', 0);
 		if ($ver < self::$db_version) {
 			new Installer();
 		}
 	}
 
-	public static function getLastLoginDate(int $user) : int
+	public static function getLastLoginDate(int $user): int
 	{
+		/** @var \wpdb $wpdb */
 		global $wpdb;
 		$dt = $wpdb->get_var($wpdb->prepare("SELECT dt FROM {$wpdb->prefix}login_log WHERE user_id = %d AND outcome = 1 ORDER BY dt DESC LIMIT 1", $user));
-		return $dt ?? -1;
+		return $dt !== null ? (int)$dt : -1;
 	}
 }

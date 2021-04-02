@@ -10,6 +10,7 @@
  * Domain Path: /lang
  */
 
+/** @phpstan-ignore-next-line */
 defined('ABSPATH') || die();
 
 if (defined('VENDOR_PATH')) {

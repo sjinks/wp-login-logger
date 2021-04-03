@@ -64,7 +64,7 @@ jobs:
           php-version: ${{ env.PHP_VERSION }}
 
       - name: Run psalm
-        run: vendor/bin/psalm
+        run: vendor/bin/psalm --long-progress
 
   phpstan:
     runs-on: ubuntu-latest
@@ -85,4 +85,4 @@ jobs:
           php-version: ${{ env.PHP_VERSION }}
 
       - name: Run phpstan
-        run: vendor/bin/phpstan analyze -c phpstan.neon.dist
+        run: vendor/bin/phpstan analyze -c phpstan.neon.dist --no-interaction

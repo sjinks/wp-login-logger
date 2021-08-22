@@ -2,14 +2,19 @@ name: Static Code Analysis
 
 on:
   push:
+  workflow_dispatch:
+
+concurrency:
+  group: sca-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
-  PHP_VERSION: "7.3"
+  PHP_VERSION: "7.4"
 
 jobs:
   prepare:
     runs-on: ubuntu-latest
-    name: Prepare the source code
+    name: Analyze the code with Psalm
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       - name: Check out source code
@@ -25,7 +30,7 @@ jobs:
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Cache Composer packages
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.6
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -35,54 +40,8 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-interaction
 
-      - name: Archive the source
-        run: touch plugin.tgz && tar czf plugin.tgz --exclude=./wordpress/ --exclude=./node_modules/ --exclude=.git/ --exclude="*.tgz" ./
-
-      - name: Upload the source
-        uses: actions/upload-artifact@v2
-        with:
-          name: plugin.tgz
-          path: plugin.tgz
-          retention-days: 1
-
-  psalm:
-    runs-on: ubuntu-latest
-    name: Psalm
-    needs: prepare
-    steps:
-      - name: Download the source code
-        uses: actions/download-artifact@v2
-        with:
-          name: plugin.tgz
-
-      - name: Extract the source code
-        run: tar xzf plugin.tgz && rm -f plugin.tgz
-
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ env.PHP_VERSION }}
+      - name: Create node_modules directory
+        run: mkdir -p node_modules
 
       - name: Run psalm
-        run: vendor/bin/psalm --long-progress
-
-  phpstan:
-    runs-on: ubuntu-latest
-    name: PHPStan
-    needs: prepare
-    steps:
-      - name: Download the source code
-        uses: actions/download-artifact@v2
-        with:
-          name: plugin.tgz
-
-      - name: Extract the source code
-        run: tar xzf plugin.tgz && rm -f plugin.tgz
-
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ env.PHP_VERSION }}
-
-      - name: Run phpstan
-        run: vendor/bin/phpstan analyze -c phpstan.neon.dist --no-interaction
+        run: composer psalm -- --output-format=github

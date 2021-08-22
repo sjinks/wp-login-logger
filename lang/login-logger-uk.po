@@ -10,101 +10,107 @@ msgstr ""
 "X-Language: uk\n"
 "X-Source-Language: C\n"
 
-#: ../views/logins.php:3 ../inc/Admin.php:40
+#: ../views/logins.php:6 ../inc/class-admin.php:27
 msgid "Login Log"
 msgstr "Журнал входів"
 
-#: ../views/logins.php:13 ../inc/LoginTable.php:60
+#: ../views/logins.php:16 ../inc/class-logintable.php:91
 msgid "Login"
 msgstr "Логін"
 
-#: ../views/logins.php:19
+#: ../views/logins.php:23
 msgid "All"
 msgstr "Усі"
 
-#: ../views/logins.php:25 ../inc/SessionTable.php:53 ../inc/LoginTable.php:61
+#: ../views/logins.php:30 ../inc/class-sessiontable.php:54
+#: ../inc/class-logintable.php:92
 msgid "IP Address"
 msgstr "IP-адреса"
 
-#: ../views/logins.php:31
+#: ../views/logins.php:36
 msgid "Search"
 msgstr "Шукати"
 
-#: ../views/history.php:3 ../views/sessions.php:12 ../views/sessions.php:14
-#: ../inc/Admin.php:41
+#: ../views/history.php:3 ../views/sessions.php:20 ../views/sessions.php:22
+#: ../inc/class-admin.php:28
 msgid "Login History"
 msgstr "Історія входів"
 
-#: ../views/sessions.php:2 ../inc/Admin.php:57
+#: ../views/sessions.php:5 ../inc/class-admin.php:46
 msgid "Sessions"
 msgstr "Сеанси"
 
-#: ../views/sessions.php:10
+#: ../views/sessions.php:18
 #, php-format
 msgid "Last login date: %s"
 msgstr "Дата останнього входу: %s"
 
-#: ../inc/SessionTable.php:14 ../inc/LoginTable.php:9
-msgid "Record"
-msgstr "Запис"
-
-#: ../inc/SessionTable.php:15 ../inc/LoginTable.php:10
-msgid "Records"
-msgstr "Записи"
-
-#: ../inc/SessionTable.php:51
-msgid "Created"
-msgstr "Створен"
-
-#: ../inc/SessionTable.php:52
-msgid "Expires"
-msgstr "Закінчується"
-
-#: ../inc/SessionTable.php:54
-msgid "User Agent"
-msgstr "Браузер"
-
-#: ../inc/SessionTable.php:80
-msgid "Log Out"
-msgstr "Выйти"
-
-#: ../inc/Admin.php:85
+#: ../inc/class-admin.php:80
 msgid "N/A"
 msgstr "Н/Д"
 
-#: ../inc/Admin.php:114
-msgid "Could not terminate the session. Please try again."
-msgstr "Не вдалося завершити сеанс. Будь ласка, спробуйте ще раз."
+#: ../inc/class-sessiontable.php:21 ../inc/class-logintable.php:18
+msgid "Record"
+msgstr "Запис"
 
-#: ../inc/Admin.php:123
-msgid "Session has been terminated."
-msgstr "Сеанс завершено."
+#: ../inc/class-sessiontable.php:22 ../inc/class-logintable.php:19
+msgid "Records"
+msgstr "Записи"
 
-#: ../inc/LoginTable.php:62
+#: ../inc/class-sessiontable.php:52
+msgid "Created"
+msgstr "Створен"
+
+#: ../inc/class-sessiontable.php:53
+msgid "Expires"
+msgstr "Закінчується"
+
+#: ../inc/class-sessiontable.php:55
+msgid "User Agent"
+msgstr "Браузер"
+
+#: ../inc/class-sessiontable.php:103
+msgid "Log Out"
+msgstr "Выйти"
+
+#: ../inc/class-logintable.php:93
 msgid "Time"
 msgstr "Час"
 
-#: ../inc/LoginTable.php:63
+#: ../inc/class-logintable.php:94
 msgid "Outcome"
 msgstr "Результат"
 
-#: ../inc/LoginTable.php:79
+#: ../inc/class-logintable.php:115
 #, php-format
 msgid "<a href=\"%s\">Profile</a>"
 msgstr "<a href=\"%s\">Профіль</a>"
 
-#: ../inc/LoginTable.php:106
+#: ../inc/class-logintable.php:140
 msgid "Login attempt"
 msgstr "Спроба входу"
 
-#: ../inc/LoginTable.php:107
+#: ../inc/class-logintable.php:141
 msgid "Login failed"
 msgstr "Невдача"
 
-#: ../inc/LoginTable.php:108
+#: ../inc/class-logintable.php:142
 msgid "Login OK"
 msgstr "Вхід успішний"
 
-#: ../inc/Plugin.php:115
+#: ../inc/class-restcontroller.php:121 ../inc/class-restcontroller.php:134
+msgid "Операція не дозволена."
+msgstr ""
+
+#: ../inc/class-restcontroller.php:176
+msgid "Session has been terminated."
+msgstr "Сеанс завершено."
+
+#: ../inc/class-restcontroller.php:195
+#, fuzzy
+msgid "All sessions have been terminated."
+msgstr "Всі сеанси були припинені."
+
+#: ../inc/class-plugin.php:52
 msgid "Log Out Everywhere"
 msgstr "Вийти всюди"

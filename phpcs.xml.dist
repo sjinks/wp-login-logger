@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ruleset name="wp-reuest-context">
+	<file>.</file>
+
+	<exclude-pattern>\.git/*</exclude-pattern>
+	<exclude-pattern>vendor/*</exclude-pattern>
+
+	<arg name="basepath" value="."/>
+	<arg name="parallel" value="8"/>
+	<arg name="extensions" value="php"/>
+	<arg value="s"/>
+
+	<rule ref="PHPCompatibilityWP"/>
+	<rule ref="WordPress-Core"/>
+	<rule ref="WordPress-Extra"/>
+	<rule ref="WordPress-VIP-Go">
+		<exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found" />
+		<exclude name="WordPress.PHP.DisallowShortTernary.Found"/>
+	</rule>
+
+	<config name="testVersion" value="7.3-"/>
+	<config name="minimum_supported_wp_version" value="5.8"/>
+	<config name="ignore_warnings_on_exit" value="true"/>
+</ruleset>

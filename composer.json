@@ -1,39 +1,55 @@
 {
-	"name" : "wildwolf/wp-login-logger",
-	"type" : "wordpress-plugin",
-	"description" : "WordPress plugin to log login attempts",
-	"keywords" : [
+	"name": "wildwolf/wp-login-logger",
+	"type": "wordpress-plugin",
+	"description": "WordPress plugin to log login attempts",
+	"keywords": [
 		"wordpress",
 		"plugin",
 		"log",
 		"login",
 		"security"
 	],
-	"license" : "MIT",
-	"homepage" : "https://github.com/sjinks/wp-login-logger",
-	"authors" : [{
-			"name" : "Volodymyr Kolesnykov",
-			"email" : "volodymyr@wildwolf.name",
-			"role" : "Developer"
+	"license": "MIT",
+	"homepage": "https://github.com/sjinks/wp-login-logger",
+	"authors": [
+		{
+			"name": "Volodymyr Kolesnykov",
+			"email": "volodymyr@wildwolf.name",
+			"role": "Developer"
 		}
 	],
 	"autoload": {
 		"psr-4": {
 			"WildWolf\\LoginLogger\\": "inc/"
-		}
+		},
+		"classmap": [
+			"inc/"
+		]
 	},
-	"require" : {
-		"php" : ">=7.0.0",
-		"composer/installers" : "^1.0",
-		"wildwolf/wp-class-autoloader" : "^5.5.0"
+	"require": {
+		"php": "^7.3.0 || ^8.0.0",
+		"composer/installers": "^1.0 || ^2.0",
+		"wildwolf/wp-class-autoloader": "^5.5.0"
 	},
 	"require-dev": {
-		"vimeo/psalm": "^4.7",
+		"automattic/vipwpcs": "^2.3",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+		"johnpbloch/wordpress-core": "^5.8",
 		"php-stubs/wordpress-stubs": "^5.7",
-		"johnpbloch/wordpress": "^5.7",
-		"phpstan/phpstan": "^0.12.82",
-		"phpstan/extension-installer": "^1.1",
-		"szepeviktor/phpstan-wordpress": "^0.7.5",
-		"phpstan/phpstan-strict-rules": "^0.12.9"
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+		"phpunit/phpunit": "^7",
+		"vimeo/psalm": "^4.7",
+		"wildwolf/wordpress-test-library-stubs": "5.8.0.1",
+		"wp-coding-standards/wpcs": "^2.3",
+		"wp-phpunit/wp-phpunit": "^5.8",
+		"yoast/phpunit-polyfills": "^1.0"
+	},
+	"config": {
+		"sort-packages": true
+	},
+	"scripts": {
+		"phpcs": "phpcs . -s",
+		"phpcs:fix": "phpcbf .",
+		"psalm": "psalm --long-progress --no-cache"
 	}
 }

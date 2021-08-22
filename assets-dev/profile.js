@@ -6,21 +6,18 @@ jQuery(function($) {
 	$('button[class~="destroy-session"][data-token]').click(function(e) {
 		var button = $(e.target);
 		var token  = button.data('token');
-		var nonce  = button.data('nonce');
 		var row    = button.closest('tr');
 		var table  = row.closest('table');
 
-		wp.ajax.post('wwall-destroy-session', {
-			token: token,
-			nonce: nonce,
-			uid:   user_id
-		}).done(function(response) {
-			row.remove();
-			table.siblings('.notice').remove();
-			table.before('<div class="notice notice-success inline"><p>' + response.message + '</p></div>');
-		}).fail(function(response) {
-			table.siblings('.notice').remove();
-			table.before('<div class="notice notice-error inline"><p>' + response.message + '</p></div>');
-		});
+		wp.apiRequest({ path: 'login-logger/v1/' + user_id + '/sessions/' + token, method: 'DELETE' })
+			.done(function(response) {
+				row.remove();
+				table.siblings('.notice').remove();
+				table.before('<div class="notice notice-success inline"><p>' + response.data.message + '</p></div>');
+			}).fail(function(response, status, err) {
+				var msg = ('responseJSON' in response) ? response.responseJSON.message : err;
+				table.siblings('.notice').remove();
+				table.before('<div class="notice notice-error inline"><p>' + msg + '</p></div>');
+			});
 	});
 });

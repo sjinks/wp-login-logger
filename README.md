@@ -1,6 +1,6 @@
 # wp-login-logger
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sjinks/wp-login-logger/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sjinks/wp-login-logger/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/sjinks/wp-login-logger/badges/build.png?b=master)](https://scrutinizer-ci.com/g/sjinks/wp-login-logger/build-status/master)
+[![CI](https://github.com/sjinks/wp-login-logger/actions/workflows/test.yaml/badge.svg)](https://github.com/sjinks/wp-login-logger/actions/workflows/test.yaml)
+[![Static Code Analysis](https://github.com/sjinks/wp-login-logger/actions/workflows/static-code-analysis.yml/badge.svg)](https://github.com/sjinks/wp-login-logger/actions/workflows/static-code-analysis.yml)
 
 WordPress plugin to log login attempts

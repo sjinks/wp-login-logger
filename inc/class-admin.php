@@ -24,8 +24,10 @@ final class Admin {
 	}
 
 	public function admin_menu(): void {
-		add_management_page( __( 'Login Log', 'login-logger' ), __( 'Login Log', 'login-logger' ), 'manage_options', 'login-log', [ $this, 'mgmt_menu_page' ] );
-		add_users_page( __( 'Login History', 'login-logger' ), __( 'Login History', 'login-logger' ), 'level_0', 'login-history', [ $this, 'user_menu_page' ] );
+		$hook = add_management_page( __( 'Login Log', 'login-logger' ), __( 'Login Log', 'login-logger' ), 'manage_options', 'login-log', [ $this, 'mgmt_menu_page' ] );
+		$hook && add_action( 'load-' . $hook, [ $this, 'remove_extra_args' ] );
+		$hook = add_users_page( __( 'Login History', 'login-logger' ), __( 'Login History', 'login-logger' ), 'level_0', 'login-history', [ $this, 'user_menu_page' ] );
+		$hook && add_action( 'load-' . $hook, [ $this, 'remove_extra_args' ] );
 	}
 
 	/**
@@ -71,6 +73,18 @@ final class Admin {
 
 	public function user_menu_page(): void {
 		self::render( 'history' );
+	}
+
+	public function remove_extra_args(): void {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ! empty( $_GET['_wp_http_referer'] ) ) {
+			/** @var string $url */
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$url = empty( $_SERVER['REQUEST_URI'] ) ? admin_url() : wp_unslash( (string) $_SERVER['REQUEST_URI'] );
+			// phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+			wp_redirect( remove_query_arg( [ '_wp_http_referer', '_wpnonce' ], $url ) );
+			exit();
+		}
 	}
 
 	public function show_user_profile( WP_User $user ): void {

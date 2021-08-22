@@ -14,7 +14,7 @@ msgstr ""
 msgid "Login Log"
 msgstr "Журнал входів"
 
-#: ../views/logins.php:16 ../inc/class-logintable.php:91
+#: ../views/logins.php:16 ../inc/class-logintable.php:62
 msgid "Login"
 msgstr "Логін"
 
@@ -23,7 +23,7 @@ msgid "All"
 msgstr "Усі"
 
 #: ../views/logins.php:30 ../inc/class-sessiontable.php:54
-#: ../inc/class-logintable.php:92
+#: ../inc/class-logintable.php:63
 msgid "IP Address"
 msgstr "IP-адреса"
 
@@ -31,31 +31,23 @@ msgstr "IP-адреса"
 msgid "Search"
 msgstr "Шукати"
 
-#: ../views/history.php:3 ../views/sessions.php:20 ../views/sessions.php:22
-#: ../inc/class-admin.php:28
+#: ../views/history.php:3 ../views/sessions.php:18 ../views/sessions.php:20
+#: ../inc/class-admin.php:29
 msgid "Login History"
 msgstr "Історія входів"
 
-#: ../views/sessions.php:5 ../inc/class-admin.php:46
+#: ../views/sessions.php:5 ../inc/class-admin.php:48
 msgid "Sessions"
 msgstr "Сеанси"
 
-#: ../views/sessions.php:18
+#: ../views/sessions.php:16
 #, php-format
 msgid "Last login date: %s"
 msgstr "Дата останнього входу: %s"
 
-#: ../inc/class-admin.php:80
+#: ../inc/class-admin.php:94
 msgid "N/A"
 msgstr "Н/Д"
-
-#: ../inc/class-sessiontable.php:21 ../inc/class-logintable.php:18
-msgid "Record"
-msgstr "Запис"
-
-#: ../inc/class-sessiontable.php:22 ../inc/class-logintable.php:19
-msgid "Records"
-msgstr "Записи"
 
 #: ../inc/class-sessiontable.php:52
 msgid "Created"
@@ -71,43 +63,42 @@ msgstr "Браузер"
 
 #: ../inc/class-sessiontable.php:103
 msgid "Log Out"
-msgstr "Выйти"
+msgstr "Вийти"
 
-#: ../inc/class-logintable.php:93
+#: ../inc/class-logintable.php:64
 msgid "Time"
 msgstr "Час"
 
-#: ../inc/class-logintable.php:94
+#: ../inc/class-logintable.php:65
 msgid "Outcome"
 msgstr "Результат"
 
-#: ../inc/class-logintable.php:115
+#: ../inc/class-logintable.php:88
 #, php-format
 msgid "<a href=\"%s\">Profile</a>"
 msgstr "<a href=\"%s\">Профіль</a>"
 
-#: ../inc/class-logintable.php:140
+#: ../inc/class-logintable.php:115
 msgid "Login attempt"
 msgstr "Спроба входу"
 
-#: ../inc/class-logintable.php:141
+#: ../inc/class-logintable.php:116
 msgid "Login failed"
 msgstr "Невдача"
 
-#: ../inc/class-logintable.php:142
+#: ../inc/class-logintable.php:117
 msgid "Login OK"
 msgstr "Вхід успішний"
 
 #: ../inc/class-restcontroller.php:121 ../inc/class-restcontroller.php:134
-msgid "Операція не дозволена."
-msgstr ""
+msgid "Operation is not allowed."
+msgstr "Операція не дозволена."
 
 #: ../inc/class-restcontroller.php:176
 msgid "Session has been terminated."
 msgstr "Сеанс завершено."
 
 #: ../inc/class-restcontroller.php:195
-#, fuzzy
 msgid "All sessions have been terminated."
 msgstr "Всі сеанси були припинені."
 

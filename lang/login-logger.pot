@@ -2,7 +2,7 @@
 msgid "Login Log"
 msgstr ""
 
-#: ../views/logins.php:16 ../inc/class-logintable.php:91
+#: ../views/logins.php:16 ../inc/class-logintable.php:62
 msgid "Login"
 msgstr ""
 
@@ -11,7 +11,7 @@ msgid "All"
 msgstr ""
 
 #: ../views/logins.php:30 ../inc/class-sessiontable.php:54
-#: ../inc/class-logintable.php:92
+#: ../inc/class-logintable.php:63
 msgid "IP Address"
 msgstr ""
 
@@ -19,30 +19,22 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: ../views/history.php:3 ../views/sessions.php:20 ../views/sessions.php:22
-#: ../inc/class-admin.php:28
+#: ../views/history.php:3 ../views/sessions.php:18 ../views/sessions.php:20
+#: ../inc/class-admin.php:29
 msgid "Login History"
 msgstr ""
 
-#: ../views/sessions.php:5 ../inc/class-admin.php:46
+#: ../views/sessions.php:5 ../inc/class-admin.php:48
 msgid "Sessions"
 msgstr ""
 
-#: ../views/sessions.php:18
+#: ../views/sessions.php:16
 #, php-format
 msgid "Last login date: %s"
 msgstr ""
 
-#: ../inc/class-admin.php:80
+#: ../inc/class-admin.php:94
 msgid "N/A"
-msgstr ""
-
-#: ../inc/class-sessiontable.php:21 ../inc/class-logintable.php:18
-msgid "Record"
-msgstr ""
-
-#: ../inc/class-sessiontable.php:22 ../inc/class-logintable.php:19
-msgid "Records"
 msgstr ""
 
 #: ../inc/class-sessiontable.php:52
@@ -61,28 +53,28 @@ msgstr ""
 msgid "Log Out"
 msgstr ""
 
-#: ../inc/class-logintable.php:93
+#: ../inc/class-logintable.php:64
 msgid "Time"
 msgstr ""
 
-#: ../inc/class-logintable.php:94
+#: ../inc/class-logintable.php:65
 msgid "Outcome"
 msgstr ""
 
-#: ../inc/class-logintable.php:115
+#: ../inc/class-logintable.php:88
 #, php-format
 msgid "<a href=\"%s\">Profile</a>"
 msgstr ""
 
-#: ../inc/class-logintable.php:140
+#: ../inc/class-logintable.php:115
 msgid "Login attempt"
 msgstr ""
 
-#: ../inc/class-logintable.php:141
+#: ../inc/class-logintable.php:116
 msgid "Login failed"
 msgstr ""
 
-#: ../inc/class-logintable.php:142
+#: ../inc/class-logintable.php:117
 msgid "Login OK"
 msgstr ""
 

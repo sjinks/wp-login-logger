@@ -18,10 +18,9 @@ class SessionTable extends WP_List_Table {
 	public function __construct( $args = [] ) {
 		parent::__construct(
 			[
-				'singular' => __( 'Record', 'login-logger' ),
-				'plural'   => __( 'Records', 'login-logger' ),
-				'screen'   => $args['screen'] ?? null,
-			]
+				'singular' => 'session',
+				'plural'   => 'sessions',
+			] + $args
 		);
 
 		$this->user_id = (int) ( $args['user_id'] ?? get_current_user_id() );

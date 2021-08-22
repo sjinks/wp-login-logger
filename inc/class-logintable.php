@@ -6,6 +6,7 @@ use WP_List_Table;
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
+ * @psalm-import-type LoginLogEntry from LoginQueries
  */
 class LoginTable extends WP_List_Table {
 
@@ -15,46 +16,10 @@ class LoginTable extends WP_List_Table {
 	public function __construct( $args = [] ) {
 		parent::__construct(
 			[
-				'singular' => __( 'Record', 'login-logger' ),
-				'plural'   => __( 'Records', 'login-logger' ),
-				'screen'   => $args['screen'] ?? null,
-			]
+				'singular' => 'login-entry',
+				'plural'   => 'login-entries',
+			] + $args
 		);
-	}
-
-	/**
-	 * @return string[]
-	 * @global \wpdb $wpdb
-	 */
-	private function buildSearchQuery(): array {
-		/** @var \wpdb $wpdb */
-		global $wpdb;
-		$query = "SELECT username, user_id, INET6_NTOA(ip) AS ip, dt, outcome FROM {$wpdb->prefix}login_log";
-		$total = "SELECT COUNT(*) FROM {$wpdb->prefix}login_log";
-		$where = [ '1=1' ];
-
-		/** @var false|string */
-		$ip = filter_input( INPUT_GET, 'ip', FILTER_VALIDATE_IP );
-		if ( ! empty( $ip ) ) {
-			$where[] = $wpdb->prepare( 'INET6_NTOA(ip) = %s', $ip );
-		}
-
-		/** @var int */
-		$user = filter_input( INPUT_GET, 'user', FILTER_VALIDATE_INT, [
-			'options' => [
-				'min_range' => 1,
-				'default'   => 0,
-			],
-		] );
-		if ( ! empty( $user ) ) {
-			$where[] = $wpdb->prepare( 'user_id = %d', $user );
-		}
-
-		$where  = join( ' AND ', $where );
-		$query .= ' WHERE ' . $where . ' ORDER BY id DESC';
-		$total .= ' WHERE ' . $where;
-
-		return [ $total, $query ];
 	}
 
 	/**
@@ -62,22 +27,24 @@ class LoginTable extends WP_List_Table {
 	 * @global \wpdb $wpdb
 	 */
 	public function prepare_items() {
-		/** @var \wpdb $wpdb */
-		global $wpdb;
-		list($total, $query) = $this->buildSearchQuery();
-
 		$paged    = $this->get_pagenum();
 		$per_page = $this->get_items_per_page( 'psb_login_log' );
-		$query   .= ' LIMIT ' . ( $paged - 1 ) * $per_page . ', ' . $per_page;
+		$offset   = ( $paged - 1 ) * $per_page;
 
-		$total_items = (int) $wpdb->get_var( $total ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-		/** @var string[] */
-		$items       = 0 !== $total_items ? $wpdb->get_results( $query, ARRAY_A ) : []; // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-		$this->items = $items;
+		$ip   = filter_input( INPUT_GET, 'ip', FILTER_VALIDATE_IP, [ 'flags' => FILTER_NULL_ON_FAILURE ] );
+		$user = filter_input( INPUT_GET, 'user', FILTER_VALIDATE_INT, [
+			'options' => [
+				'min_range' => 1,
+				'default'   => 0,
+			],
+		] );
+
+		$result      = LoginQueries::find_events( $ip, $user, $offset, $per_page );
+		$this->items = $result['items'];
 
 		$this->set_pagination_args(
 			[
-				'total_items' => $total_items,
+				'total_items' => $result['total'],
 				'per_page'    => $per_page,
 			]
 		);
@@ -98,6 +65,7 @@ class LoginTable extends WP_List_Table {
 	/**
 	 * @psalm-suppress MoreSpecificImplementedParamType
 	 * @param string[] $item
+	 * @psalm-param LoginLogEntry $item
 	 * @param string $column_name
 	 * @return string
 	 */
@@ -107,6 +75,7 @@ class LoginTable extends WP_List_Table {
 
 	/**
 	 * @param string[] $item
+	 * @psalm-param LoginLogEntry $item
 	 * @return string
 	 */
 	protected function column_username( array $item ): string {
@@ -125,6 +94,7 @@ class LoginTable extends WP_List_Table {
 
 	/**
 	 * @param string[] $item
+	 * @psalm-param LoginLogEntry $item
 	 * @return string
 	 */
 	protected function column_dt( array $item ): string {
@@ -133,6 +103,7 @@ class LoginTable extends WP_List_Table {
 
 	/**
 	 * @param string[] $item
+	 * @psalm-param LoginLogEntry $item
 	 * @return string
 	 */
 	protected function column_outcome( array $item ): string {

@@ -7,7 +7,7 @@
 
 	<form action="<?php echo esc_url( admin_url( 'tools.php' ) ); ?>" method="get">
 <?php
-$table = new \WildWolf\WordPress\LoginLogger\LoginTable();
+$table = new \WildWolf\WordPress\LoginLogger\LoginTable( [ 'screen' => 'login-log' ] );
 $table->prepare_items();
 ?>
 	<table aria-labelledby="ll-header">

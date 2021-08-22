@@ -3,6 +3,7 @@
 use WildWolf\WordPress\LoginLogger\AuthUtils;
 
 class Test_AuthUtils extends WP_UnitTestCase {
+	// NOSONAR
 	/** @var int */
 	private static $user_id_1;
 

@@ -3,6 +3,7 @@
 use WildWolf\WordPress\LoginLogger\DateTimeUtils;
 
 class Test_DateTimeUtils extends WP_UnitTestCase {
+	// NOSONAR
 	public function test_format_date_time(): void {
 		$expected = 'January 1, 1970 12:00 am';
 		$actual   = DateTimeUtils::format_date_time( 0 );

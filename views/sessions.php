@@ -4,12 +4,7 @@
 ?>
 <h2 id="user-sessions"><?php echo esc_html__( 'Sessions', 'login-logger' ); ?></h2>
 <?php
-$table = new WildWolf\WordPress\LoginLogger\SessionTable(
-	[
-		'screen'  => 'user-sessions',
-		'user_id' => $params['user_id'],
-	]
-);
+$table = new WildWolf\WordPress\LoginLogger\SessionTable( [ 'user_id' => $params['user_id'] ] );
 $table->prepare_items();
 if ( $table->items ) {
 	$table->display();

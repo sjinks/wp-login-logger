@@ -7,6 +7,7 @@ use WildWolf\WordPress\LoginLogger\SessionManager;
  * @psalm-suppress PropertyNotSetInConstructor
  */
 class Test_RESTController extends WP_Test_REST_TestCase {
+	// NOSONAR
 	/**
 	 * @var Spy_REST_Server 
 	 */
@@ -84,8 +85,8 @@ class Test_RESTController extends WP_Test_REST_TestCase {
 	 */
 	public function endpoint_requires_authentication_data_provider(): iterable {
 		return [
-			[ 'GET', RESTController::NAMESPACE . '/sessions' ],
-			[ 'GET', RESTController::NAMESPACE . '/1/sessions' ],
+			[ 'GET', RESTController::NAMESPACE . '/sessions' ],    // NOSONAR
+			[ 'GET', RESTController::NAMESPACE . '/1/sessions' ],  // NOSONAR
 			[ 'DELETE', RESTController::NAMESPACE . '/sessions' ],
 			[ 'DELETE', RESTController::NAMESPACE . '/1/sessions' ],
 			[ 'DELETE', RESTController::NAMESPACE . '/sessions/0123456789abcdef0123456789abcdef' ],

@@ -3,6 +3,7 @@
 use WildWolf\WordPress\LoginLogger\LogEntry;
 
 class Test_LogEntry extends WP_UnitTestCase {
+	// NOSONAR
 	public function test_getters(): void {
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPressVIPMinimum.Variables.ServerVariables.UserControlledHeaders, WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__REMOTE_ADDR__
 		$ip       = inet_pton( (string) ( $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0' ) );

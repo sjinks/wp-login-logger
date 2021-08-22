@@ -21,6 +21,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: "7.4"
+          coverage: none
           tools: automattic/vipwpcs, phpcompatibility/phpcompatibility-wp
 
       - name: Add error matcher

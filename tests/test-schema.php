@@ -3,6 +3,7 @@
 use WildWolf\WordPress\LoginLogger\Schema;
 
 class Test_Schema extends WP_UnitTestCase {
+	// NOSONAR
 
 	public function test_is_update_needed(): void {
 		delete_site_option( Schema::VERSION_KEY );

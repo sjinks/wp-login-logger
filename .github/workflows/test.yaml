@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php:
+          - "7.3"
+          - "7.4"
+        wpmu:
+          - "0"
+          - "1"
+        wordpress:
+          - latest
+          - trunk
+    services:
+      mysql:
+        image: mariadb:latest
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=5s --health-retries=5
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2.3.4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.12.0
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Cache Composer packages
+        uses: actions/cache@v2.1.6
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-php-${{ matrix.php }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+            ${{ runner.os }}-php-${{ matrix.php }}
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Verify MariaDB connection
+        run: |
+          while ! mysqladmin ping -h 127.0.0.1 -P ${{ job.services.mysql.ports[3306] }} --silent; do
+            sleep 1
+          done
+        timeout-minutes: 3
+
+      - name: Install WP Test Suite
+        run: ./.github/install-wp-tests.sh wordpress_test root root 127.0.0.1:${{ job.services.mysql.ports[3306] }} ${{ matrix.wordpress }}
+
+      - name: Install PHPUnit polyfills
+        run: composer require --dev  --prefer-dist --no-progress --no-interaction yoast/phpunit-polyfills
+
+      - name: Run tests
+        run: vendor/bin/phpunit
+        env:
+          WP_MULTISITE: ${{ matrix.wpmu }}

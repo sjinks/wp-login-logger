@@ -1,0 +1,41 @@
+version: '3.6'
+
+services:
+  db:
+    image: mariadb:10.3
+    volumes:
+      - db:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    networks:
+      wp:
+        ipv4_address: 172.21.0.3
+
+  wordpress:
+    image: wordpress:apache
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    networks:
+      wp:
+        ipv4_address: 172.21.0.2
+    volumes:
+      - .:/var/www/html/wp-content/plugins/wp-login-logger
+
+volumes:
+  db:
+
+networks:
+  wp:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.21.0.0/24

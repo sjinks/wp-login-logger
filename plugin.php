@@ -10,18 +10,19 @@
  * Domain Path: /lang
  */
 
-/** @phpstan-ignore-next-line */
-defined('ABSPATH') || die();
+// @codeCoverageIgnoreStart
+defined( 'ABSPATH' ) || die();
 
-if (defined('VENDOR_PATH')) {
+if ( defined( 'VENDOR_PATH' ) ) {
+	/** @psalm-suppress UnresolvableInclude */
 	require VENDOR_PATH . '/vendor/autoload.php';
-}
-elseif (file_exists(__DIR__ . '/vendor/autoload.php')) {
+} elseif ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require __DIR__ . '/vendor/autoload.php';
-}
-elseif (file_exists(ABSPATH . 'vendor/autoload.php')) {
+} elseif ( file_exists( ABSPATH . 'vendor/autoload.php' ) ) {
+	/** @psalm-suppress UnresolvableInclude */
 	require ABSPATH . 'vendor/autoload.php';
 }
 
 WildWolf\WordPress\Autoloader::register();
-WildWolf\LoginLogger\Plugin::instance();
+WildWolf\WordPress\LoginLogger\Plugin::instance();
+// @codeCoverageIgnoreEnd

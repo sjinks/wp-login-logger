@@ -1,18 +1,24 @@
 <?xml version="1.0"?>
 <psalm
-    errorLevel="2"
+    errorLevel="1"
     resolveFromConfigFile="true"
     hideExternalErrors="true"
-    hoistConstants="true"
     phpVersion="7.3"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 >
     <projectFiles>
-        <directory name="inc"/>
+        <directory name="."/>
+        <ignoreFiles>
+            <directory name="lang"/>
+            <directory name="node_modules"/>
+            <directory name="vendor"/>
+        </ignoreFiles>
     </projectFiles>
     <stubs>
-        <file name="vendor/php-stubs/wordpress-stubs/wordpress-stubs.php" />
+        <file name="vendor/php-stubs/wordpress-stubs/wordpress-stubs.php"/>
+        <file name="vendor/wildwolf/wordpress-test-library-stubs/wordpress-test-library-stubs.php"/>
+        <file name="wordpress.stubs"/>
     </stubs>
 </psalm>

@@ -1,0 +1,50 @@
+#!/bin/sh
+
+set -x
+
+export WORDPRESS_VERSION="${1:-latest}"
+export WP_MULTISITE="${2:-0}"
+
+if [ $# -ge 2 ]; then
+	shift 2
+elif [ $# -ge 1 ]; then
+	shift 1
+fi
+
+echo "--------------"
+echo "Will test with WORDPRESS_VERSION=${WORDPRESS_VERSION} and WP_MULTISITE=${WP_MULTISITE}"
+echo "--------------"
+echo
+
+MARIADB_VERSION="10.3"
+UUID=$(date +%s000)
+NETWORK_NAME="tests-${UUID}"
+
+docker network create "${NETWORK_NAME}"
+
+export MYSQL_HOST="db-${UUID}"
+export MYSQL_USER=wordpress
+export MYSQL_PASSWORD=wordpress
+export MYSQL_DATABASE=wordpress_test
+export MYSQL_ROOT_PASSWORD=wordpress
+export MYSQL_INITDB_SKIP_TZINFO=1
+
+db=$(docker run --network "${NETWORK_NAME}" --name "${MYSQL_HOST}" -e MYSQL_ROOT_PASSWORD -e MARIADB_INITDB_SKIP_TZINFO -e MYSQL_USER -e MYSQL_PASSWORD -e MYSQL_DATABASE -d "mariadb:${MARIADB_VERSION}")
+
+cleanup() {
+	docker rm -f "${db}"
+	docker network rm "${NETWORK_NAME}"
+}
+
+trap cleanup EXIT
+
+docker run \
+	--network "${NETWORK_NAME}" \
+	-e WORDPRESS_VERSION \
+	-e WP_MULTISITE \
+	-e MYSQL_USER \
+	-e MYSQL_PASSWORD \
+	-e MYSQL_DATABASE \
+	-e MYSQL_HOST \
+	-v "$(pwd):/app" \
+	wildwildangel/wp-test-runner "/usr/local/bin/runner" "$@"

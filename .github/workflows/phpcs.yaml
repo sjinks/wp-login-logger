@@ -4,6 +4,10 @@ on:
   push:
   workflow_dispatch:
 
+concurrency:
+  group: csc-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   codestyle:
     name: Run code style check

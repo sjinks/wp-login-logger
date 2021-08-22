@@ -7,6 +7,10 @@ on:
 env:
   NODE_VERSION: "14"
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     name: Run PHP Tests

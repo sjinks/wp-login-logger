@@ -16,14 +16,15 @@ class SessionTable extends WP_List_Table {
 	 * @param mixed[] $args
 	 */
 	public function __construct( $args = [] ) {
+		$this->user_id = (int) ( $args['user_id'] ?? get_current_user_id() );
+		unset( $args['user_id'] );
+
 		parent::__construct(
 			[
 				'singular' => 'session',
 				'plural'   => 'sessions',
 			] + $args
 		);
-
-		$this->user_id = (int) ( $args['user_id'] ?? get_current_user_id() );
 	}
 
 	/**

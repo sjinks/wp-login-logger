@@ -9,11 +9,16 @@ use WP_List_Table;
  * @psalm-import-type LoginLogEntry from LoginQueries
  */
 class LoginTable extends WP_List_Table {
+	/** @var int|null */
+	private $user_id;
 
 	/**
 	 * @param mixed[] $args
 	 */
 	public function __construct( $args = [] ) {
+		$this->user_id = isset( $args['user_id'] ) ? (int) $args['user_id'] : null;
+		unset( $args['user_id'] );
+
 		parent::__construct(
 			[
 				'singular' => 'login-entry',
@@ -24,7 +29,6 @@ class LoginTable extends WP_List_Table {
 
 	/**
 	 * @return void
-	 * @global \wpdb $wpdb
 	 */
 	public function prepare_items() {
 		$paged    = $this->get_pagenum();
@@ -32,7 +36,7 @@ class LoginTable extends WP_List_Table {
 		$offset   = ( $paged - 1 ) * $per_page;
 
 		$ip   = filter_input( INPUT_GET, 'ip', FILTER_VALIDATE_IP, [ 'flags' => FILTER_NULL_ON_FAILURE ] );
-		$user = filter_input( INPUT_GET, 'user', FILTER_VALIDATE_INT, [
+		$user = $this->user_id ?? filter_input( INPUT_GET, 'user', FILTER_VALIDATE_INT, [
 			'options' => [
 				'min_range' => 1,
 				'default'   => 0,

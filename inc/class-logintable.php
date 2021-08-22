@@ -70,9 +70,9 @@ class LoginTable extends WP_List_Table {
 		$per_page = $this->get_items_per_page( 'psb_login_log' );
 		$query   .= ' LIMIT ' . ( $paged - 1 ) * $per_page . ', ' . $per_page;
 
-		$total_items = (int) $wpdb->get_var( $total );
+		$total_items = (int) $wpdb->get_var( $total ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		/** @var string[] */
-		$items       = 0 !== $total_items ? $wpdb->get_results( $query, ARRAY_A ) : [];
+		$items       = 0 !== $total_items ? $wpdb->get_results( $query, ARRAY_A ) : []; // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		$this->items = $items;
 
 		$this->set_pagination_args(

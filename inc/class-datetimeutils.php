@@ -10,6 +10,6 @@ abstract class DateTimeUtils {
 	}
 
 	public static function format_date_time_full( int $dt ) : string {
-		return date( 'Y-m-d H:i:s', $dt );
+		return gmdate( 'Y-m-d H:i:s', $dt );
 	}
 }

@@ -42,8 +42,8 @@ abstract class AuthUtils {
 	public static function prepare_session_unformatted( string $verifier, array $session ): array {
 		return [
 			'verifier'   => $verifier,
-			'login'      => $session['login'],
-			'expiration' => $session['expiration'],
+			'login'      => (int) $session['login'],
+			'expiration' => (int) $session['expiration'],
 			'ip'         => $session['ip'] ?? '',
 			'ua'         => $session['ua'] ?? '',
 		];

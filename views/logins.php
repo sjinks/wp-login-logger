@@ -1,16 +1,19 @@
 <?php defined( 'ABSPATH' ) || die(); ?>
 <?php
-/** @psalm-var array{user: string, ip: string} $params */
+/**
+ * @var array $params
+ * @psalm-var array{user: string, ip: string, table: WP_List_Table} $params
+ */
 ?>
 <div class="wrap">
 	<h1 id="ll-header"><?php echo esc_html__( 'Login Log', 'login-logger' ); ?></h1>
 
 	<form action="<?php echo esc_url( admin_url( 'tools.php' ) ); ?>" method="get">
 <?php
-$table = new \WildWolf\WordPress\LoginLogger\LoginTable( [ 'screen' => 'login-log' ] );
+$table = $params['table'];
 $table->prepare_items();
 ?>
-	<table aria-labelledby="ll-header">
+	<table aria-labelledby="ll-header" class="form-table">
 		<tbody>
 			<tr>
 				<th scope="row"><?php echo esc_html__( 'Login', 'login-logger' ); ?></th>

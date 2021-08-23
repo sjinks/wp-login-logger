@@ -31,8 +31,9 @@ class LoginTable extends WP_List_Table {
 	 * @return void
 	 */
 	public function prepare_items() {
+		$screen   = $this->screen;
 		$paged    = $this->get_pagenum();
-		$per_page = $this->get_items_per_page( 'psb_login_log' );
+		$per_page = $this->get_items_per_page( str_replace( '-', '_', $screen->id . '_per_page' ), 20 );
 		$offset   = ( $paged - 1 ) * $per_page;
 
 		$ip   = filter_input( INPUT_GET, 'ip', FILTER_VALIDATE_IP, [ 'flags' => FILTER_NULL_ON_FAILURE ] );

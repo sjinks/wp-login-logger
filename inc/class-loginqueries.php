@@ -39,7 +39,7 @@ final class LoginQueries {
 				'items' => $items,
 			];
 
-			wp_cache_set( $key, $result, $group, 30 );
+			wp_cache_set( $key, $result, $group, 120 );
 		}
 
 		return $result;

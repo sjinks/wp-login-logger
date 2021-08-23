@@ -121,6 +121,29 @@ class Test_LoginQueries extends WP_UnitTestCase {
 		self::assertStringContainsString( 'user_id = ', $items_query );
 	}
 
+	public function test_find_events_caching(): void {
+		wp_set_current_user( 1 );
+		$user = wp_get_current_user();
+		$ip   = $_SERVER['REMOTE_ADDR']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPressVIPMinimum.Variables.ServerVariables.UserControlledHeaders, WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__REMOTE_ADDR__
+
+		/** @var Logger */
+		$logger = Logger::instance();
+		$logger->log_successful_login( $user );
+
+		try {
+			add_filter( 'query', [ $this, 'query_filter' ] );
+			$result = LoginQueries::find_events( $ip, $user->ID );
+		} finally {
+			remove_filter( 'query', [ $this, 'query_filter' ] );
+		}
+
+		LoginQueries::find_events();
+		self::assertCount( 2, $this->queries );
+		// This call should retrieve the results from the cache
+		LoginQueries::find_events();
+		self::assertCount( 2, $this->queries );
+	}
+
 	public function query_filter( string $query ): string {
 		$this->queries[] = $query;
 		return $query;

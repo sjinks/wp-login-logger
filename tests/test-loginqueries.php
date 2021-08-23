@@ -132,16 +132,15 @@ class Test_LoginQueries extends WP_UnitTestCase {
 
 		try {
 			add_filter( 'query', [ $this, 'query_filter' ] );
-			$result = LoginQueries::find_events( $ip, $user->ID );
+			LoginQueries::find_events( $ip, $user->ID );
+			self::assertCount( 2, $this->queries );
+
+			// This call should retrieve the results from the cache
+			LoginQueries::find_events( $ip, $user->ID );
+			self::assertCount( 2, $this->queries );
 		} finally {
 			remove_filter( 'query', [ $this, 'query_filter' ] );
 		}
-
-		LoginQueries::find_events();
-		self::assertCount( 2, $this->queries );
-		// This call should retrieve the results from the cache
-		LoginQueries::find_events();
-		self::assertCount( 2, $this->queries );
 	}
 
 	public function query_filter( string $query ): string {

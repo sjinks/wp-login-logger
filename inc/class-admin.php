@@ -61,7 +61,7 @@ final class Admin {
 	 * @param mixed[] $params
 	 * @return void
 	 */
-	private static function render( string $view, array $params = [] ): void {
+	private static function render( string $view, array $params = [] ): void /* NOSONAR */ {
 		/** @psalm-suppress UnresolvableInclude */
 		require __DIR__ . '/../views/' . $view . '.php';
 	}

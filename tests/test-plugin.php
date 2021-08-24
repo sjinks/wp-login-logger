@@ -2,12 +2,12 @@
 
 use WildWolf\WordPress\LoginLogger\Plugin;
 
-class Test_Plugin extends WP_UnitTestCase {
-	// NOSONAR
+class Test_Plugin extends WP_UnitTestCase /* NOSONAR */ {
 	/** @var int */
 	private static $user_id;
 
 	public static function wpSetUpBeforeClass( WP_UnitTest_Factory $factory ): void {
+		/** @psalm-suppress InvalidArgument - the type definitions say the second parameter is null */
 		self::$user_id = $factory->user->create( [], [
 			'user_login' => 'test_user',
 			'user_email' => 'test@example.org',
@@ -22,6 +22,7 @@ class Test_Plugin extends WP_UnitTestCase {
 
 		$this->login();
 
+		/** @var scalar */
 		$expected = wp_cache_get( $key, $group );
 		$actual   = Plugin::get_last_login_date( self::$user_id );
 
@@ -36,6 +37,7 @@ class Test_Plugin extends WP_UnitTestCase {
 
 		$this->login();
 
+		/** @var scalar */
 		$cached   = wp_cache_get( $key, $group );
 		$expected = time();
 		$actual   = Plugin::get_last_login_date( self::$user_id );
@@ -64,6 +66,7 @@ class Test_Plugin extends WP_UnitTestCase {
 
 			// Pretend the user has logged in: we need this to be able to create the nonce
 			// and get the current session token
+			/** @psalm-suppress UndefinedConstant */
 			// phpcs:ignore WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___COOKIE
 			$_COOKIE[ LOGGED_IN_COOKIE ] = "1|2|{$token}|4";
 			$_REQUEST['_wpnonce']        = wp_create_nonce( 'log-out' );
@@ -76,6 +79,7 @@ class Test_Plugin extends WP_UnitTestCase {
 			// Simulate (partial) logout: `login_form_logout()` should destroy all sessions except for the current one
 			// The current session is intended be destroyed by `wp_logout()`
 			Plugin::instance()->login_form_logout();
+			/** @psalm-var array<array{expiration: int}> */
 			$sessions = wp_get_all_sessions();
 			self::assertCount( 1, $sessions );
 
@@ -84,6 +88,7 @@ class Test_Plugin extends WP_UnitTestCase {
 			self::assertArrayHasKey( 'expiration', $session );
 			self::assertSame( $expiration_1, $session['expiration'] );
 		} finally {
+			/** @psalm-suppress UndefinedConstant, MixedArrayOffset */
 			// phpcs:ignore WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___COOKIE, WordPress.Security.NonceVerification.Recommended
 			unset( $_GET['everywhere'], $_REQUEST['_wpnonce'], $_COOKIE[ LOGGED_IN_COOKIE ] );
 		}

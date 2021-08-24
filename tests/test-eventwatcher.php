@@ -3,17 +3,18 @@
 use WildWolf\WordPress\LoginLogger\EventWatcher;
 use WildWolf\WordPress\LoginLogger\LogEntry;
 
-class Test_EventWatcher extends WP_UnitTestCase {
-	// NOSONAR
+class Test_EventWatcher extends WP_UnitTestCase /* NOSONAR */ {
 	/** @var int */
 	private static $user_id;
+
 	/** 
 	 * @var LogEntry[]
 	 * @psalm-var list<LogEntry>
 	 */
-	private $log;
+	private $log = [];
 
 	public static function wpSetUpBeforeClass( WP_UnitTest_Factory $factory ): void {
+		/** @psalm-suppress InvalidArgument - the type definitions say the second parameter is null */
 		self::$user_id = $factory->user->create( [], [
 			'user_login' => 'test_user',
 			'user_email' => 'test@example.org',
@@ -106,6 +107,7 @@ class Test_EventWatcher extends WP_UnitTestCase {
 		self::assertSame( $username, $entry_2->get_username() );
 		self::assertSame( self::$user_id, $entry_2->get_user_id() );
 
+		/** @var scalar */
 		$last_login = wp_cache_get( $key, $group );
 
 		self::assertNotFalse( $last_login );

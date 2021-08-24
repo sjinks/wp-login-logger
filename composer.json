@@ -38,6 +38,7 @@
 		"php-stubs/wordpress-stubs": "^5.7",
 		"phpcompatibility/phpcompatibility-wp": "^2.1",
 		"phpunit/phpunit": "^7",
+		"psalm/plugin-phpunit": "^0.16.1",
 		"vimeo/psalm": "^4.7",
 		"wildwolf/wordpress-test-library-stubs": "5.8.0.1",
 		"wp-coding-standards/wpcs": "^2.3",

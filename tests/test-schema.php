@@ -2,9 +2,7 @@
 
 use WildWolf\WordPress\LoginLogger\Schema;
 
-class Test_Schema extends WP_UnitTestCase {
-	// NOSONAR
-
+class Test_Schema extends WP_UnitTestCase /* NOSONAR */ {
 	public function test_is_update_needed(): void {
 		delete_site_option( Schema::VERSION_KEY );
 		$schema = Schema::instance();
@@ -51,6 +49,7 @@ class Test_Schema extends WP_UnitTestCase {
 	 * Makes SHOW TABLES return nothing
 	 * 
 	 * @global wpdb $wpdb
+	 * @param string $query
 	 */
 	public function fail_show_tables( $query ): string {
 		global $wpdb;

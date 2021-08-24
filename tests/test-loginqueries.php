@@ -3,14 +3,12 @@
 use WildWolf\WordPress\LoginLogger\Logger;
 use WildWolf\WordPress\LoginLogger\LoginQueries;
 
-class Test_LoginQueries extends WP_UnitTestCase {
-	// NOSONAR
-	// NOSONAR
+class Test_LoginQueries extends WP_UnitTestCase /* NOSONAR*/ {
 	/** 
 	 * @var string[] 
 	 * @psalm-var list<string>
 	 */
-	private $queries;
+	private $queries = [];
 
 	/**
 	 * @return void
@@ -24,7 +22,6 @@ class Test_LoginQueries extends WP_UnitTestCase {
 	public function test_find_events_basic(): void {
 		$username = 'test';
 
-		/** @var Logger */
 		$logger = Logger::instance();
 		$logger->log_login_attempt( $username );
 
@@ -32,6 +29,7 @@ class Test_LoginQueries extends WP_UnitTestCase {
 		self::assertArrayHasKey( 'total', $result );
 		self::assertArrayHasKey( 'items', $result );
 		self::assertSame( 1, $result['total'] );
+		/** @psalm-suppress RedundantConditionGivenDocblockType */
 		self::assertIsArray( $result['items'] );
 		self::assertCount( $result['total'], $result['items'] );
 		self::assertArrayHasKey( 0, $result['items'] );
@@ -42,7 +40,6 @@ class Test_LoginQueries extends WP_UnitTestCase {
 	public function test_find_events_no_conditions(): void {
 		$username = 'test';
 
-		/** @var Logger */
 		$logger = Logger::instance();
 		$logger->log_login_attempt( $username );
 
@@ -79,6 +76,7 @@ class Test_LoginQueries extends WP_UnitTestCase {
 		self::assertArrayHasKey( 'total', $result );
 		self::assertArrayHasKey( 'items', $result );
 		self::assertSame( 0, $result['total'] );
+		/** @psalm-suppress RedundantConditionGivenDocblockType */
 		self::assertIsArray( $result['items'] );
 		self::assertEmpty( $result['items'] );
 
@@ -89,9 +87,9 @@ class Test_LoginQueries extends WP_UnitTestCase {
 	public function test_find_events_with_filters(): void {
 		wp_set_current_user( 1 );
 		$user = wp_get_current_user();
-		$ip   = $_SERVER['REMOTE_ADDR']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPressVIPMinimum.Variables.ServerVariables.UserControlledHeaders, WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__REMOTE_ADDR__
+		/** @var string */
+		$ip = $_SERVER['REMOTE_ADDR']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPressVIPMinimum.Variables.ServerVariables.UserControlledHeaders, WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__REMOTE_ADDR__
 
-		/** @var Logger */
 		$logger = Logger::instance();
 		$logger->log_successful_login( $user );
 
@@ -102,10 +100,10 @@ class Test_LoginQueries extends WP_UnitTestCase {
 			remove_filter( 'query', [ $this, 'query_filter' ] );
 		}
 
-		$result = LoginQueries::find_events();
 		self::assertArrayHasKey( 'total', $result );
 		self::assertArrayHasKey( 'items', $result );
 		self::assertSame( 1, $result['total'] );
+		/** @psalm-suppress RedundantConditionGivenDocblockType */
 		self::assertIsArray( $result['items'] );
 		self::assertCount( $result['total'], $result['items'] );
 
@@ -124,9 +122,9 @@ class Test_LoginQueries extends WP_UnitTestCase {
 	public function test_find_events_caching(): void {
 		wp_set_current_user( 1 );
 		$user = wp_get_current_user();
-		$ip   = $_SERVER['REMOTE_ADDR']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPressVIPMinimum.Variables.ServerVariables.UserControlledHeaders, WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__REMOTE_ADDR__
+		/** @var string */
+		$ip = $_SERVER['REMOTE_ADDR']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPressVIPMinimum.Variables.ServerVariables.UserControlledHeaders, WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__REMOTE_ADDR__
 
-		/** @var Logger */
 		$logger = Logger::instance();
 		$logger->log_successful_login( $user );
 

@@ -2,8 +2,7 @@
 
 use WildWolf\WordPress\LoginLogger\AuthUtils;
 
-class Test_AuthUtils extends WP_UnitTestCase {
-	// NOSONAR
+class Test_AuthUtils extends WP_UnitTestCase /* NOSONAR */ {
 	/** @var int */
 	private static $user_id_1;
 
@@ -11,12 +10,14 @@ class Test_AuthUtils extends WP_UnitTestCase {
 	private static $user_id_2;
 
 	public static function wpSetUpBeforeClass( WP_UnitTest_Factory $factory ): void {
+		/** @psalm-suppress InvalidArgument - the type definitions say the second parameter is null */
 		self::$user_id_1 = $factory->user->create( [], [
 			'user_login' => 'test_user_1',
 			'user_email' => 'test@example.org',
 			'user_pass'  => 'xxx',
 		] );
 
+		/** @psalm-suppress InvalidArgument - the type definitions say the second parameter is null */
 		self::$user_id_2 = $factory->user->create( [], [
 			'user_login' => 'test_user_2',
 			'user_email' => 'another@example.org',

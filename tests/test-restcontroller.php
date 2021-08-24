@@ -3,16 +3,7 @@
 use WildWolf\WordPress\LoginLogger\RESTController;
 use WildWolf\WordPress\LoginLogger\SessionManager;
 
-/**
- * @psalm-suppress PropertyNotSetInConstructor
- */
-class Test_RESTController extends WP_Test_REST_TestCase {
-	// NOSONAR
-	/**
-	 * @var Spy_REST_Server 
-	 */
-	private $server;
-
+class Test_RESTController extends WP_Test_REST_TestCase /* NOSONAR */ {
 	/** 
 	 * @var int
 	 * @psalm-var positive-int
@@ -36,7 +27,6 @@ class Test_RESTController extends WP_Test_REST_TestCase {
 		global $wp_rest_server;
 
 		$wp_rest_server = new Spy_REST_Server();
-		$this->server   = $wp_rest_server;
 		do_action( 'rest_api_init', $wp_rest_server );
 
 		RESTController::instance()->register_rest_routes();
@@ -81,7 +71,7 @@ class Test_RESTController extends WP_Test_REST_TestCase {
 	}
 
 	/**
-	 * @psalm-return iterable<array{string, string}>
+	 * @psalm-return iterable<array-key,array{string, string}>
 	 */
 	public function endpoint_requires_authentication_data_provider(): iterable {
 		return [
@@ -95,7 +85,7 @@ class Test_RESTController extends WP_Test_REST_TestCase {
 	}
 
 	/**
-	 * @psalm-return iterable<array{string, string}>
+	 * @psalm-return iterable<array-key,array{string, string}>
 	 */
 	public function non_privileged_user_cannot_access_others_data_data_provider(): iterable {
 		return [
@@ -127,7 +117,6 @@ class Test_RESTController extends WP_Test_REST_TestCase {
 		/** @var mixed */
 		$data = $response->get_data();
 		self::assertIsArray( $data );
-		/** @var array $data */
 		self::assertCount( 1, $data );
 
 		self::assertArrayHasKey( 0, $data );
@@ -135,7 +124,6 @@ class Test_RESTController extends WP_Test_REST_TestCase {
 		$item = $data[0];
 
 		self::assertIsArray( $item );
-		/** @var array $item */
 		self::assertArrayHasKey( 'verifier', $item );
 		self::assertArrayHasKey( 'login', $item );
 		self::assertArrayHasKey( 'expiration', $item );

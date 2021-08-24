@@ -2,23 +2,24 @@
 <psalm
     errorLevel="1"
     resolveFromConfigFile="true"
-    hideExternalErrors="true"
     phpVersion="7.3"
+    findUnusedPsalmSuppress="true"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 >
     <projectFiles>
-        <directory name="."/>
-        <ignoreFiles>
-            <directory name="lang"/>
-            <directory name="node_modules"/>
-            <directory name="vendor"/>
-        </ignoreFiles>
+        <file name="plugin.php"/>
+        <file name="uninstall.php"/>
+        <directory name="inc"/>
+        <directory name="tests"/>
     </projectFiles>
     <stubs>
         <file name="vendor/php-stubs/wordpress-stubs/wordpress-stubs.php"/>
         <file name="vendor/wildwolf/wordpress-test-library-stubs/wordpress-test-library-stubs.php"/>
         <file name="wordpress.stubs"/>
     </stubs>
+    <plugins>
+        <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
+    </plugins>
 </psalm>

@@ -5,10 +5,9 @@ use WildWolf\WordPress\LoginLogger\Logger;
 use WildWolf\WordPress\LoginLogger\Plugin;
 use WildWolf\WordPress\LoginLogger\Schema;
 
-class Test_Singleton extends WP_UnitTestCase {
-	// NOSONAR
+class Test_Singleton extends WP_UnitTestCase /* NOSONAR */ {
 	public function test_instantiation(): void {
-		/** @psalm-var class-string[] */
+		/** @psalm-var (class-string<Plugin>|class-string<Schema>|class-string<Logger>|class-string<EventWatcher>)[] */
 		static $classes = [
 			Plugin::class,
 			Schema::class,

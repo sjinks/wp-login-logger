@@ -2,8 +2,10 @@
 
 use WildWolf\WordPress\LoginLogger\SessionManager;
 
-class Test_SessionManager extends WP_UnitTestCase {
-	// NOSONAR
+/**
+ * @psalm-suppress MissingConstructor
+ */
+class Test_SessionManager extends WP_UnitTestCase /* NOSONAR */ {
 	/** @var int */
 	private $expiration_1;
 	/** @var int */

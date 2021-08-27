@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="wp-reuest-context">
+<ruleset name="wp-login-logger">
 	<file>.</file>
 
 	<exclude-pattern>\.git/*</exclude-pattern>

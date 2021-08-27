@@ -2,6 +2,7 @@
 
 namespace WildWolf\WordPress\LoginLogger;
 
+use WildWolf\Utils\Singleton;
 use wpdb;
 
 class Schema {

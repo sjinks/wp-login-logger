@@ -2,6 +2,7 @@
 
 namespace WildWolf\WordPress\LoginLogger;
 
+use WildWolf\Utils\Singleton;
 use WP_Admin_Bar;
 use wpdb;
 

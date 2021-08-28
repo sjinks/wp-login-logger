@@ -53,7 +53,7 @@ export MYSQL_DATABASE=wordpress_test
 export MYSQL_ROOT_PASSWORD=wordpress
 export MYSQL_INITDB_SKIP_TZINFO=1
 
-db=$(docker run --network "${NETWORK_NAME}" --name "${MYSQL_HOST}" -e MYSQL_ROOT_PASSWORD -e MARIADB_INITDB_SKIP_TZINFO -e MYSQL_USER -e MYSQL_PASSWORD -e MYSQL_DATABASE -d "mariadb:${MARIADB_VERSION}")
+db=$(docker run --rm --network "${NETWORK_NAME}" --name "${MYSQL_HOST}" -e MYSQL_ROOT_PASSWORD -e MARIADB_INITDB_SKIP_TZINFO -e MYSQL_USER -e MYSQL_PASSWORD -e MYSQL_DATABASE -d "mariadb:${MARIADB_VERSION}")
 
 cleanup() {
 	docker rm -f "${db}"
@@ -64,6 +64,7 @@ trap cleanup EXIT
 
 # shellcheck disable=SC2086 # ARGS must not be quoted
 docker run \
+	--rm \
 	--network "${NETWORK_NAME}" \
 	-e WORDPRESS_VERSION \
 	-e WP_MULTISITE \

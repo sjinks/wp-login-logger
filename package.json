@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/sjinks/wp-login-logger#readme",
   "devDependencies": {
-    "rollup": "^2.56.3",
+    "rollup": "^2.58.0",
     "rollup-plugin-terser": "^7.0.2"
   },
   "scripts": {

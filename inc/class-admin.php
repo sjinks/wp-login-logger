@@ -30,11 +30,16 @@ final class Admin {
 
 	public function admin_menu(): void {
 		$hook = add_management_page( __( 'Login Log', 'login-logger' ), __( 'Login Log', 'login-logger' ), 'manage_options', 'login-log', [ $this, 'mgmt_menu_page' ] );
-		$hook && add_action( 'load-' . $hook, [ $this, 'remove_extra_args' ] );
-		$hook && add_action( 'load-' . $hook, [ $this, 'load_login_log_page' ] );
+		if ( $hook ) {
+			add_action( 'load-' . $hook, [ $this, 'remove_extra_args' ] );
+			add_action( 'load-' . $hook, [ $this, 'load_login_log_page' ] );
+		}
+
 		$hook = add_users_page( __( 'Login History', 'login-logger' ), __( 'Login History', 'login-logger' ), 'level_0', 'login-history', [ $this, 'user_menu_page' ] );
-		$hook && add_action( 'load-' . $hook, [ $this, 'remove_extra_args' ] );
-		$hook && add_action( 'load-' . $hook, [ $this, 'load_login_history_page' ] );
+		if ( $hook ) {
+			add_action( 'load-' . $hook, [ $this, 'remove_extra_args' ] );
+			add_action( 'load-' . $hook, [ $this, 'load_login_history_page' ] );
+		}
 	}
 
 	/**

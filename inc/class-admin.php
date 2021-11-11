@@ -18,10 +18,12 @@ final class Admin {
 
 		if ( current_user_can( 'manage_options' ) ) {
 			add_action( 'show_user_profile', [ $this, 'show_user_profile' ], 0, 1 );
+			add_action( 'personal_options_update', [ $this, 'edit_user_profile_update' ] );
 			add_filter( 'user_row_actions', [ $this, 'user_row_actions' ], 10, 2 );
 		}
 
 		add_action( 'edit_user_profile', [ $this, 'show_user_profile' ], 0, 1 );
+		add_action( 'edit_user_profile_update', [ $this, 'edit_user_profile_update' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
 
 		add_filter( 'set_screen_option_tools_page_login_log_per_page', [ $this, 'save_per_page_option' ], 10, 3 );
@@ -144,6 +146,40 @@ final class Admin {
 		];
 
 		self::render( 'sessions', $params );
+
+		$sln = (int) get_user_meta( $user->ID, 'successful_login_notification', true );
+		$uln = (int) get_user_meta( $user->ID, 'unsuccessful_login_notification', true );
+
+		$params = [
+			'sln' => $sln,
+			'uln' => $uln,
+		];
+
+		self::render( 'notifications', $params );
+	}
+
+	/**
+	 * @param int $user_id 
+	 */
+	public function edit_user_profile_update( $user_id ): void {
+		check_admin_referer( 'update-user_' . $user_id );
+		if ( ! current_user_can( 'edit_user', $user_id ) ) {
+			wp_die( esc_html__( 'Sorry, you are not allowed to edit this user.' ) );
+		}
+
+		if ( ! empty( $_POST['loginlogger'] ) && is_array( $_POST['loginlogger'] ) ) {
+			$options = [
+				'default'   => 0,
+				'min_range' => 0,
+				'max_range' => 1,
+			];
+
+			$sln = filter_var( $_POST['loginlogger']['sln'] ?? 0, FILTER_VALIDATE_INT, [ 'options' => $options ] );
+			$uln = filter_var( $_POST['loginlogger']['uln'] ?? 0, FILTER_VALIDATE_INT, [ 'options' => $options ] );
+
+			update_user_meta( $user_id, 'successful_login_notification', $sln );
+			update_user_meta( $user_id, 'unsuccessful_login_notification', $uln );
+		}
 	}
 
 	/**

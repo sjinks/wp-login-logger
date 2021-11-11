@@ -6,7 +6,7 @@ use WildWolf\Utils\Singleton;
 use WP_User;
 use wpdb;
 
-class Logger {
+final class Logger {
 	use Singleton;
 
 	/**

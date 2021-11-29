@@ -51,7 +51,7 @@ jobs:
         run: composer validate
 
       - name: Cache Composer packages
-        uses: actions/cache@v2.1.6
+        uses: actions/cache@v2.1.7
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-php-${{ matrix.php }}-${{ hashFiles('**/composer.lock') }}
@@ -97,7 +97,7 @@ jobs:
         run: npm i -g npm@latest
 
       - name: Cache Node modules
-        uses: actions/cache@v2.1.6
+        uses: actions/cache@v2.1.7
         env:
           cache-name: cache-node-modules
         with:

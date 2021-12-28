@@ -9,9 +9,6 @@ use WP_User;
 final class EventWatcher {
 	use Singleton;
 
-	/** @var bool */
-	private $attempted = false;
-
 	/**
 	 * Constructed during `init`
 	 * 
@@ -38,7 +35,6 @@ final class EventWatcher {
 	public function authenticate( $result, $login ) {
 		if ( $login ) {
 			Logger::instance()->log_login_attempt( $login );
-			$this->attempted = true;
 		}
 
 		return $result;
@@ -48,15 +44,12 @@ final class EventWatcher {
 	 * @param string|scalar $login
 	 */
 	public function wp_login( $login, WP_User $user ): void {
-		if ( $this->attempted ) {
-			Logger::instance()->log_successful_login( $user );
-			$this->attempted = false;
+		Logger::instance()->log_successful_login( $user );
 
-			$key   = 'last_login_user_' . $user->ID;
-			$group = 'login_logger';
-	
-			wp_cache_replace( $key, time(), $group, 3600 );
-		}
+		$key   = 'last_login_user_' . $user->ID;
+		$group = 'login_logger';
+
+		wp_cache_replace( $key, time(), $group, 3600 );
 	}
 
 	/**
@@ -66,7 +59,6 @@ final class EventWatcher {
 		if ( $login ) {
 			$user = AuthUtils::get_user_by_login_or_email( (string) $login );
 			Logger::instance()->log_failed_login( $login, $user );
-			$this->attempted = false;
 		}
 	}
 }

@@ -146,16 +146,6 @@ final class Admin {
 		];
 
 		self::render( 'sessions', $params );
-
-		$sln = (int) get_user_meta( $user->ID, 'successful_login_notification', true );
-		$uln = (int) get_user_meta( $user->ID, 'unsuccessful_login_notification', true );
-
-		$params = [
-			'sln' => $sln,
-			'uln' => $uln,
-		];
-
-		self::render( 'notifications', $params );
 	}
 
 	/**

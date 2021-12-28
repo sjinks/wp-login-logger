@@ -3,7 +3,7 @@
  * Plugin Name: WW Login Logger
  * Plugin URI: https://github.com/sjinks/wp-login-logger
  * Description: WordPress plugin to log login attempts
- * Version: 2.0.1
+ * Version: 2.0.2
  * Author: Volodymyr Kolesnykov
  * License: MIT
  * Text Domain: login-logger

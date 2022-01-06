@@ -1034,16 +1034,16 @@
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "5.8.2",
+            "version": "5.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "2bbb0498c019329aa12e22b21fa4f8b216ad6620"
+                "reference": "9f80e45b0a8116df03a41e4ccea09a434528b063"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/2bbb0498c019329aa12e22b21fa4f8b216ad6620",
-                "reference": "2bbb0498c019329aa12e22b21fa4f8b216ad6620",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/9f80e45b0a8116df03a41e4ccea09a434528b063",
+                "reference": "9f80e45b0a8116df03a41e4ccea09a434528b063",
                 "shasum": ""
             },
             "require": {
@@ -1051,7 +1051,7 @@
                 "php": ">=5.6.20"
             },
             "provide": {
-                "wordpress/core-implementation": "5.8.2"
+                "wordpress/core-implementation": "5.8.3"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -1078,7 +1078,7 @@
                 "source": "https://core.trac.wordpress.org/browser",
                 "wiki": "https://codex.wordpress.org/"
             },
-            "time": "2021-11-10T17:28:15+00:00"
+            "time": "2022-01-06T19:24:18+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -4450,5 +4450,5 @@
         "php": "^7.3.0 || ^8.0.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.1.0"
 }

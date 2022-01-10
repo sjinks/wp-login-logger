@@ -4333,7 +4333,7 @@
         },
         {
             "name": "wp-phpunit/wp-phpunit",
-            "version": "5.8.2",
+            "version": "5.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-phpunit/wp-phpunit.git",
@@ -4450,5 +4450,5 @@
         "php": "^7.3.0 || ^8.0.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.1.0"
 }

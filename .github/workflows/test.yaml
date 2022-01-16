@@ -13,6 +13,8 @@ concurrency:
 
 jobs:
   test:
+    permissions:
+      contents: read
     name: Run PHP Tests
     runs-on: ubuntu-latest
     strategy:
@@ -82,6 +84,8 @@ jobs:
           WP_MULTISITE: ${{ matrix.wpmu }}
 
   build:
+    permissions:
+      contents: read
     name: Build JS Files
     runs-on: ubuntu-latest
     steps:

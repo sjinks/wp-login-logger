@@ -13,6 +13,8 @@ env:
 
 jobs:
   prepare:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     name: Analyze the code with Psalm
     if: "!contains(github.event.head_commit.message, '[ci skip]')"

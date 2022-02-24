@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # tag=v2.3.4
 
       - name: Set up PHP
-        uses: shivammathur/setup-php@947009a71769c25ab5292f073f5343624b7c879d # tag=2.12.0
+        uses: shivammathur/setup-php@7854a0cae7fa7a5f3feac66d27bae2dc42d1067a # tag=2.17.0
         with:
           php-version: ${{ matrix.php }}
 

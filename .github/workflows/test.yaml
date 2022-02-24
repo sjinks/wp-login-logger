@@ -38,10 +38,10 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=5s --health-retries=5
     steps:
       - name: Check out source code
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # tag=v2.3.4
 
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.12.0
+        uses: shivammathur/setup-php@947009a71769c25ab5292f073f5343624b7c879d # tag=2.12.0
         with:
           php-version: ${{ matrix.php }}
 
@@ -53,7 +53,7 @@ jobs:
         run: composer validate
 
       - name: Cache Composer packages
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@937d24475381cd9c75ae6db12cb4e79714b926ed # tag=v2.1.7
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-php-${{ matrix.php }}-${{ hashFiles('**/composer.lock') }}
@@ -90,10 +90,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out source code
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # tag=v2.3.4
 
       - name: Set up Node.js environment
-        uses: actions/setup-node@v2.5.1
+        uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561 # tag=v2.5.1
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -101,7 +101,7 @@ jobs:
         run: npm i -g npm@latest
 
       - name: Cache Node modules
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@937d24475381cd9c75ae6db12cb4e79714b926ed # tag=v2.1.7
         env:
           cache-name: cache-node-modules
         with:

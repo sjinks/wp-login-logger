@@ -4,17 +4,15 @@ on:
   push:
   workflow_dispatch:
 
-env:
-  NODE_VERSION: "14"
-
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   test:
-    permissions:
-      contents: read
     name: Run PHP Tests
     runs-on: ubuntu-latest
     strategy:
@@ -45,25 +43,8 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
 
-      - name: Get composer cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Validate composer.json and composer.lock
-        run: composer validate
-
-      - name: Cache Composer packages
-        uses: actions/cache@136d96b4aee02b1f0de3ba493b1d47135042d9c0 # tag=v3.0.1
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-php-${{ matrix.php }}-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-            ${{ runner.os }}-php-${{ matrix.php }}
-            ${{ runner.os }}-php-
-
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-interaction
+        uses: ramsey/composer-install@f680dac46551dffb2234a240d65ae806c2999dd6 # tag=2.1.0
 
       - name: Verify MariaDB connection
         run: |
@@ -84,8 +65,6 @@ jobs:
           WP_MULTISITE: ${{ matrix.wpmu }}
 
   build:
-    permissions:
-      contents: read
     name: Build JS Files
     runs-on: ubuntu-latest
     steps:
@@ -95,21 +74,11 @@ jobs:
       - name: Set up Node.js environment
         uses: actions/setup-node@5b52f097d36d4b0b2f94ed6de710023fbb8b2236 # tag=v3.1.0
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: lts/*
+          cache: npm
 
       - name: Update npm
         run: npm i -g npm@latest
-
-      - name: Cache Node modules
-        uses: actions/cache@136d96b4aee02b1f0de3ba493b1d47135042d9c0 # tag=v3.0.1
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node }}-
-            ${{ runner.os }}-build-${{ env.cache-name }}-
 
       - name: Install dependencies
         run: npm ci --ignore-scripts

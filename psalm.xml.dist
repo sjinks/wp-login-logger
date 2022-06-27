@@ -2,7 +2,7 @@
 <psalm
     errorLevel="1"
     resolveFromConfigFile="true"
-    phpVersion="7.3"
+    phpVersion="7.4"
     findUnusedPsalmSuppress="true"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="https://getpsalm.org/schema/config"

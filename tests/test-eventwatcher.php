@@ -22,10 +22,7 @@ class Test_EventWatcher extends WP_UnitTestCase /* NOSONAR */ {
 		] );
 	}
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->log = [];
 	}

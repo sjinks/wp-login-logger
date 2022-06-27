@@ -16,11 +16,10 @@ class Test_RESTController extends WP_Test_REST_TestCase /* NOSONAR */ {
 	}
 
 	/**
-	 * @return void
 	 * @global WP_REST_Server|null $wp_rest_server
 	 * @psalm-suppress UnusedVariable
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		/** @var WP_REST_Server $wp_rest_server */
@@ -33,10 +32,9 @@ class Test_RESTController extends WP_Test_REST_TestCase /* NOSONAR */ {
 	}
 
 	/**
-	 * @return void
 	 * @psalm-suppress UnusedVariable
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		global $wp_rest_server;
 
 		$wp_rest_server = null;

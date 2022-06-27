@@ -10,10 +10,7 @@ class Test_LoginQueries extends WP_UnitTestCase /* NOSONAR*/ {
 	 */
 	private $queries = [];
 
-	/**
-	 * @return void
-	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->queries = [];
 		wp_cache_flush();

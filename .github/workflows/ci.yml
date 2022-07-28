@@ -67,7 +67,7 @@ jobs:
           fi
 
       - name: Set up PHP
-        uses: shivammathur/setup-php@945c34c1751f6d2c8106ec0feba5662fcbc1c943 # tag=2.21.0
+        uses: shivammathur/setup-php@16011a795d747d5f45038f96371c3b98aec5669d # tag=2.21.1
         with:
           coverage: ${{ steps.coverage.outputs.coverage }}
           ini-values: ${{ steps.coverage.outputs.ini }}

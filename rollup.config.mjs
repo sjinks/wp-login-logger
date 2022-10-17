@@ -1,4 +1,4 @@
-import { terser } from 'rollup-plugin-terser';
+import { terser } from '@wwa/rollup-plugin-terser';
 
 export default (async () => ({
     input: 'assets-dev/profile.js',

@@ -71,13 +71,14 @@ final class Admin {
 	 */
 	private static function render( string $view, array $params = [] ): void /* NOSONAR */ {
 		/** @psalm-suppress UnresolvableInclude */
-		require __DIR__ . '/../views/' . $view . '.php';
+		require __DIR__ . '/../views/' . $view . '.php'; // NOSONAR
 	}
 
 	public function remove_extra_args(): void {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! empty( $_GET['_wp_http_referer'] ) ) {
-			$url = empty( $_SERVER['REQUEST_URI'] ) ? admin_url() : wp_sanitize_redirect( wp_unslash( (string) $_SERVER['REQUEST_URI'] ) );
+			/** @psalm-suppress RedundantCondition */
+			$url = ! empty( $_SERVER['REQUEST_URI'] ) && is_string( $_SERVER['REQUEST_URI'] ) ? wp_sanitize_redirect( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : admin_url();
 			wp_safe_redirect( remove_query_arg( [ '_wp_http_referer', '_wpnonce' ], $url ) );
 			exit();
 		}

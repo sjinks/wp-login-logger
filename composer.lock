@@ -2226,16 +2226,16 @@
         },
         {
             "name": "psalm/plugin-phpunit",
-            "version": "0.18.0",
+            "version": "0.18.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/psalm/psalm-plugin-phpunit.git",
-                "reference": "e61073617d3efd4d9dee3b830f754f5283306aff"
+                "reference": "6d932594bb56cd8c8dad81df2b242ada86b7a892"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psalm/psalm-plugin-phpunit/zipball/e61073617d3efd4d9dee3b830f754f5283306aff",
-                "reference": "e61073617d3efd4d9dee3b830f754f5283306aff",
+                "url": "https://api.github.com/repos/psalm/psalm-plugin-phpunit/zipball/6d932594bb56cd8c8dad81df2b242ada86b7a892",
+                "reference": "6d932594bb56cd8c8dad81df2b242ada86b7a892",
                 "shasum": ""
             },
             "require": {
@@ -2280,9 +2280,9 @@
             "description": "Psalm plugin for PHPUnit",
             "support": {
                 "issues": "https://github.com/psalm/psalm-plugin-phpunit/issues",
-                "source": "https://github.com/psalm/psalm-plugin-phpunit/tree/0.18.0"
+                "source": "https://github.com/psalm/psalm-plugin-phpunit/tree/0.18.1"
             },
-            "time": "2022-11-01T18:44:31+00:00"
+            "time": "2022-11-02T17:50:18+00:00"
         },
         {
             "name": "psr/container",
@@ -4652,16 +4652,16 @@
         },
         {
             "name": "wp-phpunit/wp-phpunit",
-            "version": "6.0.3",
+            "version": "6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-phpunit/wp-phpunit.git",
-                "reference": "88c786f68c6abe1061f9e40f5e8b299e41a50287"
+                "reference": "49521597fa525f762a50a4a6d22ed180839519fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-phpunit/wp-phpunit/zipball/88c786f68c6abe1061f9e40f5e8b299e41a50287",
-                "reference": "88c786f68c6abe1061f9e40f5e8b299e41a50287",
+                "url": "https://api.github.com/repos/wp-phpunit/wp-phpunit/zipball/49521597fa525f762a50a4a6d22ed180839519fd",
+                "reference": "49521597fa525f762a50a4a6d22ed180839519fd",
                 "shasum": ""
             },
             "type": "library",
@@ -4696,7 +4696,7 @@
                 "issues": "https://github.com/wp-phpunit/issues",
                 "source": "https://github.com/wp-phpunit/wp-phpunit"
             },
-            "time": "2022-08-30T21:14:52+00:00"
+            "time": "2022-11-02T12:52:44+00:00"
         },
         {
             "name": "yoast/phpunit-polyfills",

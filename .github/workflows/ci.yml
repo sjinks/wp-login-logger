@@ -81,7 +81,7 @@ jobs:
           chmod +x /usr/local/bin/phpunit
 
       - name: Install PHP dependencies
-        uses: ramsey/composer-install@7f9021e5513f650c97a067ad64e907e23fd8276e # tag=2.1.1
+        uses: ramsey/composer-install@83af392bf5f031813d25e6fe4cd626cdba9a2df6 # 2.2.0
 
       - name: Set up WordPress and WordPress Test Library
         uses: sjinks/setup-wordpress-test-library@fbc2f0cbddce038fb624f4bd85ae57bb1d306ea3 # tag=1.1.10

@@ -11,7 +11,7 @@ final class EventWatcher {
 
 	/**
 	 * Constructed during `init`
-	 * 
+	 *
 	 * @codeCoverageIgnore Class instantiation happens during bootstrapping; `init` happens before tests are run
 	 */
 	private function __construct() {
@@ -41,9 +41,9 @@ final class EventWatcher {
 	}
 
 	/**
-	 * @param string|scalar $login
+	 * @param string|scalar $_login
 	 */
-	public function wp_login( $login, WP_User $user ): void {
+	public function wp_login( $_login, WP_User $user ): void {
 		Logger::instance()->log_successful_login( $user );
 
 		$key   = 'last_login_user_' . $user->ID;

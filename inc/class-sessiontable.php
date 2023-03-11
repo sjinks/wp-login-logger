@@ -15,7 +15,6 @@ class SessionTable extends WP_List_Table {
 	/**
 	 * @param mixed[] $args
 	 * @psalm-param array{ajax?: bool, plural?: string, screen?: string, singular?: string, user_id?: int} $args
-	 * @psalm-suppress RedundantCastGivenDocblockType
 	 */
 	public function __construct( $args = [] ) {
 		$this->user_id = (int) ( $args['user_id'] ?? get_current_user_id() );
@@ -48,6 +47,7 @@ class SessionTable extends WP_List_Table {
 
 	/**
 	 * @return string[]
+	 * @psalm-return array<string,string>
 	 */
 	public function get_columns() {
 		return [

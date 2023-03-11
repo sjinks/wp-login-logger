@@ -77,7 +77,7 @@ final class Admin {
 	public function remove_extra_args(): void {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! empty( $_GET['_wp_http_referer'] ) ) {
-			/** @psalm-suppress RedundantCondition */
+			/** @psalm-suppress RedundantCondition, TypeDoesNotContainType */
 			$url = ! empty( $_SERVER['REQUEST_URI'] ) && is_string( $_SERVER['REQUEST_URI'] ) ? wp_sanitize_redirect( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : admin_url();
 			wp_safe_redirect( remove_query_arg( [ '_wp_http_referer', '_wpnonce' ], $url ) );
 			exit();
@@ -150,7 +150,7 @@ final class Admin {
 	}
 
 	/**
-	 * @param int $user_id 
+	 * @param int $user_id
 	 */
 	public function edit_user_profile_update( $user_id ): void {
 		check_admin_referer( 'update-user_' . $user_id );
@@ -174,11 +174,11 @@ final class Admin {
 	}
 
 	/**
-	 * @param mixed $screen_option
-	 * @param string $option
+	 * @param mixed $_screen_option
+	 * @param string $_option
 	 * @param scalar $value
 	 */
-	public function save_per_page_option( $screen_option, $option, $value ): int {
+	public function save_per_page_option( $_screen_option, $_option, $value ): int {
 		$v = (int) $value;
 		if ( $v < 1 ) {
 			$v = 10;

@@ -22,6 +22,6 @@
 	</rule>
 
 	<config name="testVersion" value="7.4-"/>
-	<config name="minimum_supported_wp_version" value="5.8"/>
+	<config name="minimum_supported_wp_version" value="5.9"/>
 	<config name="ignore_warnings_on_exit" value="true"/>
 </ruleset>

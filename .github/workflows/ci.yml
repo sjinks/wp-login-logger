@@ -20,26 +20,24 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { wp: 5.5.x,   ms: 'no',  php: '7.4', phpunit: 7 }
-          - { wp: 5.6.x,   ms: 'no',  php: '7.4', phpunit: 7 }
-          - { wp: 5.7.x,   ms: 'no',  php: '7.4', phpunit: 7 }
-          - { wp: 5.8.x,   ms: 'no',  php: '7.4', phpunit: 7 }
           - { wp: 5.9.x,   ms: 'no',  php: '7.4', phpunit: 7 }
-          - { wp: latest,  ms: 'no',  php: '7.4', phpunit: 7 }
-          - { wp: nightly, ms: 'no',  php: '7.4', phpunit: 7 }
-
-          - { wp: 5.5.x,   ms: 'yes', php: '7.4', phpunit: 7 }
-          - { wp: 5.6.x,   ms: 'yes', php: '7.4', phpunit: 7 }
-          - { wp: 5.7.x,   ms: 'yes', php: '7.4', phpunit: 7 }
-          - { wp: 5.8.x,   ms: 'yes', php: '7.4', phpunit: 7 }
           - { wp: 5.9.x,   ms: 'yes', php: '7.4', phpunit: 7 }
+          - { wp: 6.0.x,   ms: 'no',  php: '7.4', phpunit: 7 }
+          - { wp: 6.0.x,   ms: 'yes', php: '7.4', phpunit: 7 }
+          - { wp: latest,  ms: 'no',  php: '7.4', phpunit: 7 }
           - { wp: latest,  ms: 'yes', php: '7.4', phpunit: 7 }
+          - { wp: nightly, ms: 'no',  php: '7.4', phpunit: 7 }
           - { wp: nightly, ms: 'yes', php: '7.4', phpunit: 7 }
 
           - { wp: latest,  ms: 'no',  php: '8.0', phpunit: 9, coverage: 'yes' }
-          - { wp: nightly, ms: 'no',  php: '8.0', phpunit: 9, coverage: 'yes' }
           - { wp: latest,  ms: 'yes', php: '8.0', phpunit: 9, coverage: 'yes' }
-          - { wp: nightly, ms: 'yes', php: '8.0', phpunit: 9, coverage: 'yes' }
+          - { wp: nightly, ms: 'no',  php: '8.0', phpunit: 9 }
+          - { wp: nightly, ms: 'yes', php: '8.0', phpunit: 9 }
+
+          - { wp: latest,  ms: 'no',  php: '8.1', phpunit: 9 }
+          - { wp: latest,  ms: 'yes', php: '8.1', phpunit: 9 }
+          - { wp: nightly, ms: 'no',  php: '8.1', phpunit: 9 }
+          - { wp: nightly, ms: 'yes', php: '8.1', phpunit: 9 }
     services:
       mysql:
         image: mariadb:latest
@@ -91,6 +89,13 @@ jobs:
       - name: Set up multisite mode
         run: echo "WP_MULTISITE=1" >> $GITHUB_ENV
         if: matrix.config.ms == 'yes'
+
+      - name: Update wp-test-config.php
+        run: |
+          if php -r 'exit(PHP_VERSION_ID < 80100);'; then
+            echo "Disabling WP_DEBUG in wp-test-config.php"
+            sed -i "s@define( 'WP_DEBUG', true );@// define( 'WP_DEBUG', true );@" /tmp/wordpress-tests-lib/wp-tests-config.php
+          fi
 
       - name: Verify MariaDB connection
         run: |

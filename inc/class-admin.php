@@ -37,7 +37,7 @@ final class Admin {
 			add_action( 'load-' . $hook, [ $this, 'load_login_log_page' ] );
 		}
 
-		$hook = add_users_page( __( 'Login History', 'login-logger' ), __( 'Login History', 'login-logger' ), 'level_0', 'login-history', [ $this, 'user_menu_page' ] );
+		$hook = add_users_page( __( 'Login History', 'login-logger' ), __( 'Login History', 'login-logger' ), 'read', 'login-history', [ $this, 'user_menu_page' ] );
 		if ( $hook ) {
 			add_action( 'load-' . $hook, [ $this, 'remove_extra_args' ] );
 			add_action( 'load-' . $hook, [ $this, 'load_login_history_page' ] );
@@ -69,7 +69,7 @@ final class Admin {
 	 * @param mixed[] $params
 	 * @return void
 	 */
-	private static function render( string $view, array $params = [] ): void /* NOSONAR */ {
+	private static function render( string $view, array $params = [] ): void /* NOSONAR */ { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		/** @psalm-suppress UnresolvableInclude */
 		require __DIR__ . '/../views/' . $view . '.php'; // NOSONAR
 	}

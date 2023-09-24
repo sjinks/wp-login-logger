@@ -9,7 +9,7 @@ if ( ! $_tests_dir ) {
 }
 
 if ( ! file_exists( $_tests_dir . '/includes/functions.php' ) ) {
-	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CLI
+	// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- CLI
 	throw new Exception( "Could not find $_tests_dir/includes/functions.php, have you run bin/install-wp-tests.sh?" ); // NOSONAR
 }
 

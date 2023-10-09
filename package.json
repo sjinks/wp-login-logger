@@ -16,7 +16,7 @@
   "homepage": "https://github.com/sjinks/wp-login-logger#readme",
   "devDependencies": {
     "@wwa/rollup-plugin-terser": "^1.0.1",
-    "rollup": "^3.0.0"
+    "rollup": "^4.0.0"
   },
   "scripts": {
     "build": "rollup -c"

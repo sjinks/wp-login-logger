@@ -57,7 +57,7 @@ class Schema {
 
 		if ( ! function_exists( 'dbDelta' ) ) {
 			// @codeCoverageIgnoreStart
-			/** @psalm-suppress UndefinedConstant, UnresolvableInclude */
+			/** @psalm-suppress MissingFile */
 			require_once ABSPATH . '/wp-admin/includes/upgrade.php';
 			// @codeCoverageIgnoreEnd
 		}

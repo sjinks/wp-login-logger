@@ -38,8 +38,7 @@ class LoginTable extends WP_List_Table {
 		$offset   = ( $paged - 1 ) * $per_page;
 
 		/** @var string|null */
-		$ip = filter_input( INPUT_GET, 'ip', FILTER_VALIDATE_IP, [ 'flags' => FILTER_NULL_ON_FAILURE ] );
-		/** @var int */
+		$ip   = filter_input( INPUT_GET, 'ip', FILTER_VALIDATE_IP, [ 'flags' => FILTER_NULL_ON_FAILURE ] );
 		$user = $this->user_id ?? filter_input( INPUT_GET, 'user', FILTER_VALIDATE_INT, [
 			'options' => [
 				'min_range' => 1,

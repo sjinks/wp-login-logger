@@ -57,6 +57,7 @@ final class Plugin {
 	}
 
 	public function login_form_logout(): void {
+		/** @psalm-suppress RiskyTruthyFalsyComparison */
 		if ( ! empty( $_GET['everywhere'] ) ) {
 			check_admin_referer( 'log-out' );
 			wp_destroy_other_sessions();

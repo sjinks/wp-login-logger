@@ -31,13 +31,13 @@ final class Admin {
 	}
 
 	public function admin_menu(): void {
-		$hook = add_management_page( __( 'Login Log', 'login-logger' ), __( 'Login Log', 'login-logger' ), 'manage_options', 'login-log', [ $this, 'mgmt_menu_page' ] );
+		$hook = (string) add_management_page( __( 'Login Log', 'login-logger' ), __( 'Login Log', 'login-logger' ), 'manage_options', 'login-log', [ $this, 'mgmt_menu_page' ] );
 		if ( $hook ) {
 			add_action( 'load-' . $hook, [ $this, 'remove_extra_args' ] );
 			add_action( 'load-' . $hook, [ $this, 'load_login_log_page' ] );
 		}
 
-		$hook = add_users_page( __( 'Login History', 'login-logger' ), __( 'Login History', 'login-logger' ), 'read', 'login-history', [ $this, 'user_menu_page' ] );
+		$hook = (string) add_users_page( __( 'Login History', 'login-logger' ), __( 'Login History', 'login-logger' ), 'read', 'login-history', [ $this, 'user_menu_page' ] );
 		if ( $hook ) {
 			add_action( 'load-' . $hook, [ $this, 'remove_extra_args' ] );
 			add_action( 'load-' . $hook, [ $this, 'load_login_history_page' ] );
@@ -75,9 +75,10 @@ final class Admin {
 	}
 
 	public function remove_extra_args(): void {
+		/** @psalm-suppress RiskyTruthyFalsyComparison */
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! empty( $_GET['_wp_http_referer'] ) ) {
-			/** @psalm-suppress RedundantCondition, TypeDoesNotContainType */
+			/** @psalm-suppress RedundantCondition, TypeDoesNotContainType, RiskyTruthyFalsyComparison */
 			$url = ! empty( $_SERVER['REQUEST_URI'] ) && is_string( $_SERVER['REQUEST_URI'] ) ? wp_sanitize_redirect( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : admin_url();
 			wp_safe_redirect( remove_query_arg( [ '_wp_http_referer', '_wpnonce' ], $url ) );
 			exit();
@@ -112,10 +113,8 @@ final class Admin {
 	public function mgmt_menu_page(): void {
 		global $wp_list_table;
 
-		/** @var string */
-		$user = filter_input( INPUT_GET, 'user', FILTER_DEFAULT, [ 'options' => [ 'default' => '' ] ] ); // phpcs:disable WordPressVIPMinimum.Security.PHPFilterFunctions.RestrictedFilter
-		/** @var string */
-		$ip = filter_input( INPUT_GET, 'ip', FILTER_VALIDATE_IP, [ 'options' => [ 'default' => '' ] ] );
+		$user = (string) filter_input( INPUT_GET, 'user', FILTER_DEFAULT ); // phpcs:disable WordPressVIPMinimum.Security.PHPFilterFunctions.RestrictedFilter
+		$ip   = filter_input( INPUT_GET, 'ip', FILTER_VALIDATE_IP, [ 'options' => [ 'default' => '' ] ] );
 		self::render( 'logins', [
 			'user'  => $user,
 			'ip'    => $ip,
@@ -158,6 +157,7 @@ final class Admin {
 			wp_die( esc_html__( 'Sorry, you are not allowed to edit this user.' ) );
 		}
 
+		/** @psalm-suppress RiskyTruthyFalsyComparison */
 		if ( ! empty( $_POST['loginlogger'] ) && is_array( $_POST['loginlogger'] ) ) {
 			$options = [
 				'default'   => 0,

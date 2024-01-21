@@ -54,10 +54,12 @@ final class LoginQueries {
 
 		$where = [ '1=1' ];
 
+		/** @psalm-suppress RiskyTruthyFalsyComparison */
 		if ( ! empty( $ip ) ) {
 			$where[] = $wpdb->prepare( 'INET6_NTOA(ip) = %s', $ip );
 		}
 
+		/** @psalm-suppress RiskyTruthyFalsyComparison */
 		if ( ! empty( $user ) ) {
 			$where[] = $wpdb->prepare( 'user_id = %d', $user );
 		}

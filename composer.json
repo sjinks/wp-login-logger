@@ -34,7 +34,7 @@
 		"johnpbloch/wordpress-core": "^6.0",
 		"php-stubs/wordpress-stubs": "^6.0",
 		"phpcompatibility/phpcompatibility-wp": "^2.1",
-		"psalm/plugin-phpunit": "^0.18.0",
+		"psalm/plugin-phpunit": "^0.19.0",
 		"vimeo/psalm": "^5.0",
 		"wildwolf/wordpress-test-library-stubs": "^6.0",
 		"wp-phpunit/wp-phpunit": "^6.0",

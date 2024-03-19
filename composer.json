@@ -26,8 +26,7 @@
 	"require": {
 		"php": "^7.4.0 || ^8.0.0",
 		"composer/installers": "^2.0",
-		"wildwolf/singleton-trait": "^1.0.1",
-		"wildwolf/wp-class-autoloader": "^5.5.0"
+		"wildwolf/singleton-trait": "^1.0.1"
 	},
 	"require-dev": {
 		"automattic/vipwpcs": "^3.0",

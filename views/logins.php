@@ -30,8 +30,8 @@ $table->prepare_items();
 				</td>
 			</tr>
 			<tr>
-				<th scope="row"><?php echo esc_html__( 'IP Address', 'login-logger' ); ?></th>
-				<td><input type="text" name="ip" value="<?php echo esc_attr( $params['ip'] ); ?>"/></td>
+				<th scope="row"><?= esc_html__( 'IP Address', 'login-logger' ); ?></th>
+				<td><input type="text" name="ip" value="<?= esc_attr( $params['ip'] ); ?>"/></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>

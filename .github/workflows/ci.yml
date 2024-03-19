@@ -14,16 +14,11 @@ permissions:
 jobs:
   unit-tests:
     name: "WP ${{ matrix.config.wp }}, multisite: ${{ matrix.config.ms }}, PHP: ${{ matrix.config.php }}"
-    if: "!contains(github.event.head_commit.message, '[ci skip]')"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         config:
-          - { wp: 5.9.x,   ms: 'no',  php: '7.4', phpunit: 7 }
-          - { wp: 5.9.x,   ms: 'yes', php: '7.4', phpunit: 7 }
-          - { wp: 6.0.x,   ms: 'no',  php: '7.4', phpunit: 7 }
-          - { wp: 6.0.x,   ms: 'yes', php: '7.4', phpunit: 7 }
           - { wp: latest,  ms: 'no',  php: '7.4', phpunit: 7 }
           - { wp: latest,  ms: 'yes', php: '7.4', phpunit: 7 }
           - { wp: nightly, ms: 'no',  php: '7.4', phpunit: 7 }
@@ -38,6 +33,16 @@ jobs:
           - { wp: latest,  ms: 'yes', php: '8.1', phpunit: 9 }
           - { wp: nightly, ms: 'no',  php: '8.1', phpunit: 9 }
           - { wp: nightly, ms: 'yes', php: '8.1', phpunit: 9 }
+
+          - { wp: latest,  ms: 'no',  php: '8.2', phpunit: 9 }
+          - { wp: latest,  ms: 'yes', php: '8.2', phpunit: 9 }
+          - { wp: nightly, ms: 'no',  php: '8.2', phpunit: 9 }
+          - { wp: nightly, ms: 'yes', php: '8.2', phpunit: 9 }
+
+          - { wp: latest,  ms: 'no',  php: '8.3', phpunit: 9 }
+          - { wp: latest,  ms: 'yes', php: '8.3', phpunit: 9 }
+          - { wp: nightly, ms: 'no',  php: '8.3', phpunit: 9 }
+          - { wp: nightly, ms: 'yes', php: '8.3', phpunit: 9 }
     services:
       mysql:
         image: mariadb:latest

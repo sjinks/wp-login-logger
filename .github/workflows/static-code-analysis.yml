@@ -12,13 +12,12 @@ permissions:
   contents: read
 
 env:
-  PHP_VERSION: "8.0"
+  PHP_VERSION: "8.3"
 
 jobs:
   psalm:
     runs-on: ubuntu-latest
     name: Psalm
-    if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       - name: Check out source code
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1

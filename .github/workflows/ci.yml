@@ -122,6 +122,7 @@ jobs:
         with:
           files: clover.xml
           flags: unittests
+          token: ${{ secrets.CODECOV_TOKEN }}
         if: ${{ steps.coverage.outputs.coverage != 'none' }}
 
   build:

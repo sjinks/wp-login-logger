@@ -22,6 +22,11 @@ final class Admin {
 			add_filter( 'user_row_actions', [ $this, 'user_row_actions' ], 10, 2 );
 		}
 
+		if ( current_user_can( 'list_users' ) ) {
+			add_filter( 'manage_users_columns', [ $this, 'manage_users_columns' ] );
+			add_filter( 'manage_users_custom_column', [ $this, 'manage_users_custom_column' ], 10, 3 );
+		}
+
 		add_action( 'edit_user_profile', [ $this, 'show_user_profile' ], 0, 1 );
 		add_action( 'edit_user_profile_update', [ $this, 'edit_user_profile_update' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
@@ -61,6 +66,37 @@ final class Admin {
 		$link                     = get_edit_user_link( $user->ID ) . '#user-sessions';
 		$actions['login-history'] = '<a href="' . $link . '">' . __( 'Sessions', 'login-logger' ) . '</a>';
 		return $actions;
+	}
+
+	/**
+	 * @param string[] $columns
+	 * @return string[]
+	 */
+	public function manage_users_columns( array $columns ): array {
+		$columns['last_login'] = __( 'Last Login', 'login-logger' );
+		return $columns;
+	}
+
+	/**
+	 * @param mixed $output 
+	 * @param string $column_name 
+	 * @param int $user_id 
+	 * @return string 
+	 */
+	public function manage_users_custom_column( $output, string $column_name, int $user_id ): string {
+		if ( 'last_login' === $column_name ) {
+			$last = Plugin::get_last_login_date( $user_id );
+
+			if ( -1 === $last ) {
+				$last = esc_html__( 'N/A', 'login-logger' );
+			} else {
+				$last = esc_html( DateTimeUtils::format_date_time( $last ) );
+			}
+
+			$output = $last;
+		}
+
+		return (string) $output;
 	}
 
 	/**

@@ -5,38 +5,33 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
 
-#: ../views/logins.php:6 ../inc/class-admin.php:27
-msgid "Login Log"
-msgstr "Журнал входов"
-
-#: ../views/logins.php:16 ../inc/class-logintable.php:62
-msgid "Login"
-msgstr "Логин"
-
-#: ../views/logins.php:23
-msgid "All"
-msgstr "Все"
-
-#: ../views/logins.php:30 ../inc/class-sessiontable.php:54
-#: ../inc/class-logintable.php:63
-msgid "IP Address"
-msgstr "IP-адрес"
-
-#: ../views/logins.php:36
-msgid "Search"
-msgstr "Искать"
-
-#: ../views/history.php:3 ../views/sessions.php:18 ../views/sessions.php:20
-#: ../inc/class-admin.php:29
+#: ../views/history.php:9 ../views/sessions.php:18 ../views/sessions.php:20
+#: ../inc/class-admin.php:45
 msgid "Login History"
 msgstr "История входов"
 
-#: ../views/sessions.php:5 ../inc/class-admin.php:48
+#: ../views/logins.php:9 ../inc/class-admin.php:39
+msgid "Login Log"
+msgstr "Журнал входов"
+
+#: ../views/logins.php:19 ../inc/class-logintable.php:66
+msgid "Login"
+msgstr "Логин"
+
+#: ../views/logins.php:26
+msgid "All"
+msgstr "Все"
+
+#: ../views/logins.php:39
+msgid "Search"
+msgstr "Искать"
+
+#: ../views/sessions.php:5 ../inc/class-admin.php:67
 msgid "Sessions"
 msgstr "Сеансы"
 
@@ -45,63 +40,75 @@ msgstr "Сеансы"
 msgid "Last login date: %s"
 msgstr "Дата последнего входа: %s"
 
-#: ../inc/class-admin.php:94
+#: ../inc/class-admin.php:76
+msgid "Last Login"
+msgstr "Последний вход"
+
+#: ../inc/class-admin.php:91 ../inc/class-admin.php:174
 msgid "N/A"
 msgstr "Н/Д"
 
-#: ../inc/class-sessiontable.php:52
-msgid "Created"
-msgstr "Создан"
+#: ../inc/class-admin.php:193
+msgid "Sorry, you are not allowed to edit this user."
+msgstr ""
 
-#: ../inc/class-sessiontable.php:53
-msgid "Expires"
-msgstr "Истекает"
+#: ../inc/class-logintable.php:67 ../inc/class-sessiontable.php:56
+msgid "IP Address"
+msgstr "IP-адрес"
 
-#: ../inc/class-sessiontable.php:55
-msgid "User Agent"
-msgstr "Бразуер"
-
-#: ../inc/class-sessiontable.php:103
-msgid "Log Out"
-msgstr "Выйти"
-
-#: ../inc/class-logintable.php:64
+#: ../inc/class-logintable.php:68
 msgid "Time"
 msgstr "Время"
 
-#: ../inc/class-logintable.php:65
+#: ../inc/class-logintable.php:69
 msgid "Outcome"
 msgstr "Результат"
 
-#: ../inc/class-logintable.php:88
+#: ../inc/class-logintable.php:91
 #, php-format
 msgid "<a href=\"%s\">Profile</a>"
 msgstr "<a href=\"%s\">Профиль</a>"
 
-#: ../inc/class-logintable.php:115
+#: ../inc/class-logintable.php:118
 msgid "Login attempt"
 msgstr "Попытка входа"
 
-#: ../inc/class-logintable.php:116
+#: ../inc/class-logintable.php:119
 msgid "Login failed"
 msgstr "Неудача"
 
-#: ../inc/class-logintable.php:117
+#: ../inc/class-logintable.php:120
 msgid "Login OK"
 msgstr "Успешный вход"
 
-#: ../inc/class-restcontroller.php:121 ../inc/class-restcontroller.php:134
+#: ../inc/class-plugin.php:53
+msgid "Log Out Everywhere"
+msgstr "Выйти везде"
+
+#: ../inc/class-restcontroller.php:122 ../inc/class-restcontroller.php:135
 msgid "Operation is not allowed."
 msgstr "Операция не разрешена."
 
-#: ../inc/class-restcontroller.php:176
+#: ../inc/class-restcontroller.php:177
 msgid "Session has been terminated."
 msgstr "Сеанс завершён."
 
-#: ../inc/class-restcontroller.php:195
+#: ../inc/class-restcontroller.php:196
 msgid "All sessions have been terminated."
 msgstr "Все сеансы были завершены."
 
-#: ../inc/class-plugin.php:52
-msgid "Log Out Everywhere"
-msgstr "Выйти везде"
+#: ../inc/class-sessiontable.php:54
+msgid "Created"
+msgstr "Создан"
+
+#: ../inc/class-sessiontable.php:55
+msgid "Expires"
+msgstr "Истекает"
+
+#: ../inc/class-sessiontable.php:57
+msgid "User Agent"
+msgstr "Бразуер"
+
+#: ../inc/class-sessiontable.php:104
+msgid "Log Out"
+msgstr "Выйти"

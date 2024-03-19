@@ -3,7 +3,7 @@
  * Plugin Name: WW Login Logger
  * Plugin URI: https://github.com/sjinks/wp-login-logger
  * Description: WordPress plugin to log login attempts
- * Version: 2.0.3
+ * Version: 2.1.0
  * Author: Volodymyr Kolesnykov
  * License: MIT
  * Text Domain: login-logger
@@ -11,17 +11,25 @@
  */
 
 // @codeCoverageIgnoreStart
+
+use Composer\Autoload\ClassLoader;
+use WildWolf\WordPress\LoginLogger\Plugin;
+
 if ( defined( 'ABSPATH' ) ) {
-	if ( defined( 'VENDOR_PATH' ) ) {
-		/** @psalm-suppress UnresolvableInclude, MixedOperand */
-		require constant( 'VENDOR_PATH' ) . '/vendor/autoload.php'; // NOSONAR
-	} elseif ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
-		require __DIR__ . '/vendor/autoload.php';
+	if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+		/** @var ClassLoader */
+		$loader = require __DIR__ . '/vendor/autoload.php';
 	} elseif ( file_exists( ABSPATH . 'vendor/autoload.php' ) ) {
-		require ABSPATH . 'vendor/autoload.php';
+		/** @var ClassLoader */
+		$loader = require ABSPATH . 'vendor/autoload.php';
+	} else {
+		return;
 	}
 
-	WildWolf\WordPress\Autoloader::register();
-	WildWolf\WordPress\LoginLogger\Plugin::instance();
+	$loader->addClassMap( [
+		WP_List_Table::class => ABSPATH . 'wp-admin/includes/class-wp-list-table.php',
+	] );
+
+	Plugin::instance();
 }
 // @codeCoverageIgnoreEnd

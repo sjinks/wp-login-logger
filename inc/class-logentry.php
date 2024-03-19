@@ -15,17 +15,17 @@ final class LogEntry {
 
 	/** @var string */
 	private $ip;
-	
+
 	/** @var int */
 	private $dt;
-	
+
 	/** @var string */
 	private $username;
-	
+
 	/** @var int */
 	private $user_id;
-	
-	/** 
+
+	/**
 	 * @var int
 	 * @psalm-var Outcome
 	 */
@@ -37,7 +37,7 @@ final class LogEntry {
 	 * @param int $outcome
 	 * @psalm-param Outcome $outcome
 	 */
-	public function __construct( $username, $user_id, int $outcome ) {      
+	public function __construct( $username, $user_id, int $outcome ) {
 		// phpcs:ignore WordPressVIPMinimum.Variables.ServerVariables.UserControlledHeaders, WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__REMOTE_ADDR__
 		$this->ip       = inet_pton( filter_var( $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0', FILTER_VALIDATE_IP, [ 'options' => [ 'default' => '0.0.0.0' ] ] ) );
 		$this->dt       = time();

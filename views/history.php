@@ -8,7 +8,7 @@
 <div class="wrap">
 	<h1><?php echo esc_html__( 'Login History', 'login-logger' ); ?></h1>
 
-	<form action="<?php echo esc_url( admin_url( 'users.php' ) ); ?>" method="get">
+	<form action="<?= esc_url( admin_url( 'users.php' ) ); ?>" method="get">
 		<input type="hidden" name="page" value="login-history"/>
 <?php
 $table = $params['table'];

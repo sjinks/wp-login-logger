@@ -2,7 +2,7 @@ version: '3.6'
 
 services:
   db:
-    image: mariadb:11.3@sha256:b5e508abc5d889425e90212541e30d29279b7ed34dd74bab5bb715b2f2aeeb7b
+    image: mariadb:11.3@sha256:de4eeda057a231e2f1fb055b800a061ca1b4245f99f94508bac5ba088733f427
     volumes:
       - db:/var/lib/mysql
     restart: always

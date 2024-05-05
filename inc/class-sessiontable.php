@@ -106,10 +106,10 @@ class SessionTable extends WP_List_Table {
 	}
 
 	/**
-	 * @param string $_which
+	 * @param string $which
 	 * @return void
 	 */
-	protected function display_tablenav( $_which ) {
+	protected function display_tablenav( $which ) {
 		// Intentionally empty
 	}
 }

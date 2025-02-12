@@ -16,7 +16,7 @@ services:
         ipv4_address: 172.21.0.3
 
   wordpress:
-    image: wordpress:apache@sha256:43693c77589bcad6f6babe86fa14728a19224445ff883c4dbf8660d260dd547b
+    image: wordpress:apache@sha256:0211348df9f5e29a32cb6a65ec5aff2c2e775670fdb054ab98f7833eb539234a
     restart: always
     environment:
       WORDPRESS_DB_HOST: db

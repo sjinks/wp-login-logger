@@ -39,7 +39,7 @@ final class LogEntry {
 	 */
 	public function __construct( $username, $user_id, int $outcome ) {
 		// phpcs:ignore WordPressVIPMinimum.Variables.ServerVariables.UserControlledHeaders, WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__REMOTE_ADDR__
-		$this->ip       = inet_pton( filter_var( $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0', FILTER_VALIDATE_IP, [ 'options' => [ 'default' => '0.0.0.0' ] ] ) );
+		$this->ip       = (string) inet_pton( filter_var( $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0', FILTER_VALIDATE_IP, [ 'options' => [ 'default' => '0.0.0.0' ] ] ) );
 		$this->dt       = time();
 		$this->username = (string) $username;
 		$this->user_id  = (int) $user_id;

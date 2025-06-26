@@ -17,10 +17,6 @@ abstract class SessionManager {
 		$reflection = new ReflectionClass( $manager );
 		$method     = $reflection->getMethod( 'get_sessions' );
 
-		if ( PHP_VERSION_ID < 80100 ) {
-			$method->setAccessible( true ); // NOSONAR
-		}
-
 		/** @var array<string,Session> */
 		return $method->invoke( $manager );
 	}
@@ -29,10 +25,6 @@ abstract class SessionManager {
 		$manager    = WP_Session_Tokens::get_instance( $user_id );
 		$reflection = new ReflectionClass( $manager );
 		$method     = $reflection->getMethod( 'update_session' );
-
-		if ( PHP_VERSION_ID < 80100 ) {
-			$method->setAccessible( true ); // NOSONAR
-		}
 
 		$method->invoke( $manager, $verifier, null );
 	}

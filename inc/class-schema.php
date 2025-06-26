@@ -5,7 +5,7 @@ namespace WildWolf\WordPress\LoginLogger;
 use WildWolf\Utils\Singleton;
 use wpdb;
 
-class Schema {
+final class Schema {
 	use Singleton;
 
 	const VERSION_KEY    = 'ww_login_logger_dbver';

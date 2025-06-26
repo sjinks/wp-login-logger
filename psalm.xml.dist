@@ -16,12 +16,14 @@
         <directory name="tests"/>
     </projectFiles>
     <issueHandlers>
+        <MissingOverrideAttribute errorLevel="suppress"/>
         <PossiblyUnusedParam errorLevel="suppress"/>
         <PossiblyUnusedReturnValue errorLevel="suppress"/>
         <PossiblyUnusedMethod errorLevel="suppress"/>
         <RedundantCast errorLevel="suppress"/>
         <RedundantCastGivenDocblockType errorLevel="suppress"/>
         <UnusedClass errorLevel="suppress"/>
+        <UnusedParam errorLevel="suppress"/>
     </issueHandlers>
     <stubs>
         <file name="vendor/php-stubs/wordpress-stubs/wordpress-stubs.php"/>

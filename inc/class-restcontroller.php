@@ -8,7 +8,7 @@ use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
 
-class RESTController {
+final class RESTController {
 	use Singleton;
 
 	const NAMESPACE = 'login-logger/v1';

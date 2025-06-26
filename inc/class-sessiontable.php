@@ -8,7 +8,7 @@ use WP_List_Table;
  * @psalm-suppress PropertyNotSetInConstructor
  * @psalm-import-type PreparedSessionUnformatted from AuthUtils
  */
-class SessionTable extends WP_List_Table {
+final class SessionTable extends WP_List_Table {
 	/** @var int */
 	private $user_id;
 

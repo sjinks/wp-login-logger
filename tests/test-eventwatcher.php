@@ -3,7 +3,7 @@
 use WildWolf\WordPress\LoginLogger\EventWatcher;
 use WildWolf\WordPress\LoginLogger\LogEntry;
 
-class Test_EventWatcher extends WP_UnitTestCase /* NOSONAR */ {
+final class Test_EventWatcher extends WP_UnitTestCase /* NOSONAR */ {
 	/** @var int */
 	private static $user_id;
 

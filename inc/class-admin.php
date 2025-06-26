@@ -100,7 +100,6 @@ final class Admin {
 	}
 
 	/**
-	 * @psalm-suppress UnusedParam
 	 * @param string $view
 	 * @param mixed[] $params
 	 * @return void

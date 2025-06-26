@@ -2,7 +2,6 @@
 <psalm
     errorLevel="1"
     resolveFromConfigFile="true"
-    phpVersion="7.4"
     findUnusedPsalmSuppress="true"
     findUnusedBaselineEntry="true"
     findUnusedCode="true"

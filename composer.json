@@ -24,7 +24,7 @@
 		]
 	},
 	"require": {
-		"php": "^7.4.0 || ^8.0.0",
+		"php": "^8.1.0",
 		"composer/installers": "^2.0",
 		"wildwolf/singleton-trait": "^1.0.1"
 	},
@@ -47,12 +47,12 @@
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		},
 		"platform": {
-			"php": "7.4"
+			"php": "8.1.19"
 		}
 	},
 	"scripts": {
 		"phpcs": "phpcs",
 		"phpcs:fix": "phpcbf",
-		"psalm": "psalm --long-progress --no-cache"
+		"psalm": "psalm --long-progress --no-cache -m"
 	}
 }

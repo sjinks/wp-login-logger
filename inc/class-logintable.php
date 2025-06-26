@@ -8,7 +8,7 @@ use WP_List_Table;
  * @psalm-suppress PropertyNotSetInConstructor
  * @psalm-import-type LoginLogEntry from LoginQueries
  */
-class LoginTable extends WP_List_Table {
+final class LoginTable extends WP_List_Table {
 	/** @var int|null */
 	private $user_id;
 

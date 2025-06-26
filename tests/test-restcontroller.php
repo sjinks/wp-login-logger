@@ -3,7 +3,7 @@
 use WildWolf\WordPress\LoginLogger\RESTController;
 use WildWolf\WordPress\LoginLogger\SessionManager;
 
-class Test_RESTController extends WP_Test_REST_TestCase /* NOSONAR */ {
+final class Test_RESTController extends WP_Test_REST_TestCase /* NOSONAR */ {
 	/** 
 	 * @var int
 	 * @psalm-var positive-int

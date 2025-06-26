@@ -3,7 +3,7 @@
 use WildWolf\WordPress\LoginLogger\Logger;
 use WildWolf\WordPress\LoginLogger\LoginQueries;
 
-class Test_LoginQueries extends WP_UnitTestCase /* NOSONAR*/ {
+final class Test_LoginQueries extends WP_UnitTestCase /* NOSONAR*/ {
 	/** 
 	 * @var string[] 
 	 * @psalm-var list<string>

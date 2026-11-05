@@ -16,6 +16,17 @@
         <directory name="tests"/>
     </projectFiles>
     <issueHandlers>
+        <!-- Psalm 7 reports malformed PHPStan annotations in the generated third-party stubs. -->
+        <InvalidDocblock>
+            <errorLevel type="suppress">
+                <file name="vendor/php-stubs/wordpress-stubs/wordpress-stubs.php"/>
+            </errorLevel>
+        </InvalidDocblock>
+        <MissingDocblockType>
+            <errorLevel type="suppress">
+                <file name="vendor/wildwolf/wordpress-test-library-stubs/wordpress-test-library-stubs.php"/>
+            </errorLevel>
+        </MissingDocblockType>
         <MissingOverrideAttribute errorLevel="suppress"/>
         <PossiblyUnusedParam errorLevel="suppress"/>
         <PossiblyUnusedReturnValue errorLevel="suppress"/>

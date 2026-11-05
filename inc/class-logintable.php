@@ -5,7 +5,6 @@ namespace WildWolf\WordPress\LoginLogger;
 use WP_List_Table;
 
 /**
- * @psalm-suppress PropertyNotSetInConstructor
  * @psalm-import-type LoginLogEntry from LoginQueries
  */
 final class LoginTable extends WP_List_Table {

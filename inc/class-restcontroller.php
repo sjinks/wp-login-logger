@@ -150,6 +150,7 @@ final class RESTController {
 		return $this->list_sessions( $user_id );
 	}
 
+	/** @psalm-suppress UnusedMethod Called by the public REST handlers above. */
 	private function list_sessions( int $user_id ): WP_REST_Response {
 		$sessions = SessionManager::get_all( $user_id );
 		$items    = array_map( [ AuthUtils::class, 'prepare_session' ], array_keys( $sessions ), array_values( $sessions ) );
@@ -169,6 +170,7 @@ final class RESTController {
 		return $this->delete_session( $user_id, $session_id );
 	}
 
+	/** @psalm-suppress UnusedMethod Called by the public REST handlers above. */
 	private function delete_session( int $user_id, string $verifier ): WP_REST_Response {
 		SessionManager::delete( $user_id, $verifier );
 		/** @var WP_REST_Response */
@@ -188,6 +190,7 @@ final class RESTController {
 		return $this->delete_all_sessions( $user_id );
 	}
 
+	/** @psalm-suppress UnusedMethod Called by the public REST handlers above. */
 	private function delete_all_sessions( int $user_id ): WP_REST_Response {
 		SessionManager::delete_all( $user_id );
 		/** @var WP_REST_Response */

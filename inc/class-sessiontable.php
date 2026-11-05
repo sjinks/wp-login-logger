@@ -5,7 +5,6 @@ namespace WildWolf\WordPress\LoginLogger;
 use WP_List_Table;
 
 /**
- * @psalm-suppress PropertyNotSetInConstructor
  * @psalm-import-type PreparedSessionUnformatted from AuthUtils
  */
 final class SessionTable extends WP_List_Table {

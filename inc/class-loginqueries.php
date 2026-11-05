@@ -14,9 +14,9 @@ final class LoginQueries {
 	/**
 	 * @global wpdb $wpdb
 	 * @psalm-return FoundEvents
+	 * @psalm-suppress UnusedVariable Psalm 7 misses the use in the cache-miss branch.
 	 */
 	public static function find_events( ?string $ip = null, ?int $user = null, int $offset = 0, int $limit = 10 ): array {
-		/** @var wpdb $wpdb */
 		global $wpdb;
 
 		$key   = sprintf( 'events:ip=%s|uid=%u|o=%u|l=%u', $ip ?? '', $user ?? 0, $offset, $limit );
